@@ -131,7 +131,11 @@ pantheios_be_parseStockArgs_(
 
 namespace
 {
-    bool has_boolean_flag_value(string_view_t const& value, bool &flagIsOn)
+    bool
+    has_boolean_flag_value(
+        string_view_t const&    value
+    ,   bool&                   flagIsOn
+    )
     {
         // Can be one of:   yes, true, on, 1, no, false, off, 0 (in any case)
 
@@ -450,7 +454,7 @@ pantheios_be_parseStockArgs_(
                 else if (name == PANTHEIOS_LITERAL_STRING("showThreadId"))
                 {
                     flagSuppresses  =   true;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_NO_PROCESS_ID;
+                    flagValue       =   PANTHEIOS_BE_INIT_F_NO_THREAD_ID;
                 }
                 // PANTHEIOS_BE_INIT_F_NO_DATETIME
                 else if (name == PANTHEIOS_LITERAL_STRING("showDateTime"))
@@ -530,9 +534,27 @@ pantheios_be_parseStockArgs_(
 
                 ++numMatched;
 
-                if ((!flagIsOn) != (!flagSuppresses))
+                if (flagSuppresses)
                 {
-                    *flags |= flagValue;
+                    if (flagIsOn)
+                    {
+                        *flags &= ~flagValue;
+                    }
+                    else
+                    {
+                        *flags |= flagValue;
+                    }
+                }
+                else
+                {
+                    if (flagIsOn)
+                    {
+                        *flags |= flagValue;
+                    }
+                    else
+                    {
+                        *flags &= ~flagValue;
+                    }
                 }
 
                 slice.len = 0; // Mark this slice as having been processed successfully

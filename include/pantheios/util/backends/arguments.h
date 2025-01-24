@@ -56,8 +56,8 @@
 #ifndef PANTHEIOS_DOCUMENTATION_SKIP_SECTION
 # define PANTHEIOS_VER_PANTHEIOS_UTIL_BACKENDS_H_ARGUMENTS_MAJOR    2
 # define PANTHEIOS_VER_PANTHEIOS_UTIL_BACKENDS_H_ARGUMENTS_MINOR    1
-# define PANTHEIOS_VER_PANTHEIOS_UTIL_BACKENDS_H_ARGUMENTS_REVISION 2
-# define PANTHEIOS_VER_PANTHEIOS_UTIL_BACKENDS_H_ARGUMENTS_EDIT     27
+# define PANTHEIOS_VER_PANTHEIOS_UTIL_BACKENDS_H_ARGUMENTS_REVISION 3
+# define PANTHEIOS_VER_PANTHEIOS_UTIL_BACKENDS_H_ARGUMENTS_EDIT     28
 #endif /* !PANTHEIOS_DOCUMENTATION_SKIP_SECTION */
 
 
@@ -138,6 +138,9 @@ pantheios_be_parseBooleanArg(
  * \pre NULL != args || 0 == numArgs
  * \pre NULL != argName
  * \pre NULL != argValue
+ *
+ * \note The contents of \c argValue are unchanged if \c argName is not
+ *  matched.
  */
 PANTHEIOS_CALL(int)
 pantheios_be_parseStringArg(
@@ -162,7 +165,8 @@ pantheios_be_parseStringArg(
  *
  * Recognises the following argument names:
  * - "showProcessId"            (Boolean)
- * - "showTime"                 (Boolean)
+ * - "showThreadId"             (Boolean)
+ * - "showDateTime"             (Boolean)
  * - "showSeverity"             (Boolean)
  * - "useSystemTime"            (Boolean)
  * - "showDetailsAtStart"       (Boolean)
@@ -195,6 +199,10 @@ pantheios_be_parseStockArgs(
 /* /////////////////////////////////////////////////////////////////////////
  * inclusion
  */
+
+#ifdef STLSOFT_PPF_pragma_once_SUPPORT
+# pragma once
+#endif /* STLSOFT_PPF_pragma_once_SUPPORT */
 
 #endif /* !PANTHEIOS_INCL_PANTHEIOS_UTIL_BACKENDS_H_ARGUMENTS */
 
