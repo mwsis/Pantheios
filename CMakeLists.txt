@@ -1,11 +1,11 @@
 
 # ######################################################################## #
-# File:     /CMakeLists.txt
+# File:     CMakeLists.txt
 #
 # Purpose:  Top-level CMake lists file for Pantheios
 #
 # Created:  29th March 2021
-# Updated:  20th October 2024
+# Updated:  24th January 2025
 #
 # ######################################################################## #
 
@@ -60,7 +60,7 @@ set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON) # GNU extensions and POSIX standard
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
@@ -71,6 +71,18 @@ if(MSVC)
 		set(CMAKE_C_STANDARD 90)
 		set(CMAKE_CXX_STANDARD 98)
 	endif()
+
+	if(MSVC_USE_MT)
+
+		set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+	endif(MSVC_USE_MT)
+else(MSVC)
+
+	if(MSVC_USE_MT)
+
+		# this here just to absorb warning about not using `MSVC_USE_MT` (to
+		# enable **prepare_cmake.sh** to be simple)
+	endif(MSVC_USE_MT)
 endif(MSVC)
 
 
@@ -156,6 +168,18 @@ endif()
 
 if(DEFINED STLSOFT_INCLUDE_DIR)
 
+	if(BUILD_TESTING)
+		find_package(STLSoft REQUIRED)
+
+		if(NOT STLSoft_FOUND)
+
+			message(FATAL_ERROR "When specifying STLSOFT explicitly it it still required to have an existing CMake installation of STLSoft in testing to satisfy xTest's dependency requirements. The specified STLSoft will be used for all compilation")
+		else()
+
+			message("-- CMake package STLSoft found (version ${STLSoft_VERSION}) - required only to enable xTests package; the current project's header files will be used for all compilation")
+		endif()
+	endif(BUILD_TESTING)
+
 	include_directories(${STLSOFT_INCLUDE_DIR})
 endif()
 
@@ -167,7 +191,12 @@ find_package(b64 QUIET)
 
 if(b64_FOUND)
 
-	message("-- CMake package b64 found (version ${b64_VERSION}")
+	message("-- CMake package b64 found (version ${b64_VERSION})")
+
+	add_compile_definitions(HAS_b64)
+else(b64_FOUND)
+
+	add_compile_definitions(PANTHEIOS_NO_B64)
 endif(b64_FOUND)
 
 
@@ -181,7 +210,17 @@ if(BUILD_TESTING)
 	if(shwild_FOUND)
 
 		message("-- CMake package shwild found (version ${shwild_VERSION})")
+
+		add_compile_definitions(HAS_shwild)
+		add_compile_definitions(PANTHEIOS_HAS_SHWILD)
+		add_compile_definitions(XTESTS_HAS_SHWILD)
+	else(shwild_FOUND)
+
+		add_compile_definitions(PANTHEIOS_NO_SHWILD)
 	endif(shwild_FOUND)
+else(BUILD_TESTING)
+
+	add_compile_definitions(PANTHEIOS_NO_SHWILD)
 endif(BUILD_TESTING)
 
 
@@ -190,7 +229,7 @@ endif(BUILD_TESTING)
 
 if(BUILD_TESTING)
 
-	set(xTests_REQUIRED_VERSION_ 0.24)
+	set(xTests_REQUIRED_VERSION_ 0.25.4)
 
 	find_package(xTests ${xTests_REQUIRED_VERSION_} REQUIRED)
 
@@ -254,9 +293,10 @@ endif(BUILD_TESTING)
 # ##########################################################
 # export
 
-set(EXPORT_NAME ${PROJECT_NAME_LOWER})
+set(EXPORT_NAME ${PROJECT_NAME})
 
 #[====[
+#]====]
 configure_package_config_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/cmake/${EXPORT_NAME}-config.cmake.in
 	${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config.cmake
@@ -280,12 +320,44 @@ install(EXPORT project-targets
 	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORT_NAME}
 )
 
-install( FILES
+install(FILES
 	"${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config.cmake"
 	"${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config-version.cmake"
 	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORT_NAME}
 )
-#]====]
+
+install(
+	FILES
+		${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME_LOWER}/${PROJECT_NAME_LOWER}.h
+		${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME_LOWER}/${PROJECT_NAME_LOWER}.hpp
+		${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME_LOWER}/assert.h
+		${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME_LOWER}/backend.h
+		${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME_LOWER}/fileline.h
+		${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME_LOWER}/frontend.h
+		${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME_LOWER}/init_codes.h
+		${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME_LOWER}/pan.hpp
+		${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME_LOWER}/trace.h
+	DESTINATION include/${PROJECT_NAME_LOWER}
+)
+
+install_file("frontends" "stock.h")
+
+install_file(backends bec.console.h)
+
+foreach(ITEM
+	internal
+	quality
+	severity
+	shims
+)
+
+	install(
+		DIRECTORY ${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME_LOWER}/${ITEM}/
+		DESTINATION include/${PROJECT_NAME_LOWER}/${ITEM}/
+		FILES_MATCHING
+		PATTERN "*.h*"
+	)
+endforeach()
 
 
 # ##########################################################

@@ -25,7 +25,11 @@ target_compile_options(Pantheios.bec.file.WithCallback
 		>
 )
 
-install(TARGETS Pantheios.bec.file.WithCallback)
+install(TARGETS Pantheios.bec.file.WithCallback
+	EXPORT project-targets
+)
+
+install_file(backends bec.file.h)
 
 
 # ############################## end of file ############################# #

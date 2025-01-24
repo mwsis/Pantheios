@@ -25,7 +25,11 @@ target_compile_options(Pantheios.fe.null.WithCallback
 		>
 )
 
-install(TARGETS Pantheios.fe.null.WithCallback)
+install(TARGETS Pantheios.fe.null.WithCallback
+	EXPORT project-targets
+)
+
+install_file(frontends fe.null.h)
 
 
 # ############################## end of file ############################# #

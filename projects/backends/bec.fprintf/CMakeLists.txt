@@ -13,7 +13,11 @@ target_link_STLSoft(Pantheios.bec.fprintf)
 
 define_target_compile_options(Pantheios.bec.fprintf)
 
-install(TARGETS Pantheios.bec.fprintf)
+install(TARGETS Pantheios.bec.fprintf
+	EXPORT project-targets
+)
+
+install_file(backends bec.fprintf.h)
 
 
 # ############################## end of file ############################# #

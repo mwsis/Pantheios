@@ -13,7 +13,11 @@ target_link_STLSoft(Pantheios.fe.simple)
 
 define_target_compile_options(Pantheios.fe.simple)
 
-install(TARGETS Pantheios.fe.simple)
+install(TARGETS Pantheios.fe.simple
+	EXPORT project-targets
+)
+
+install_file(frontends fe.simple.h)
 
 
 # ############################## end of file ############################# #

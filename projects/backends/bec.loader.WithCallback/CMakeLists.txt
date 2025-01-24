@@ -11,7 +11,11 @@ add_library(Pantheios.bec.loader
 
 define_target_compile_options(Pantheios.bec.loader)
 
-install(TARGETS Pantheios.bec.loader)
+install(TARGETS Pantheios.bec.loader
+	EXPORT project-targets
+)
+
+install_file(backends bec.loader.h)
 
 
 # ############################## end of file ############################# #

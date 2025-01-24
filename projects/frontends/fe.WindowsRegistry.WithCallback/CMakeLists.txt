@@ -25,7 +25,11 @@ target_compile_options(Pantheios.fe.WindowsRegistry.WithCallback
 		>
 )
 
-install(TARGETS Pantheios.fe.WindowsRegistry.WithCallback)
+install(TARGETS Pantheios.fe.WindowsRegistry.WithCallback
+	EXPORT project-targets
+)
+
+install_file(frontends fe.WindowsRegistry.h)
 
 
 # ############################## end of file ############################# #

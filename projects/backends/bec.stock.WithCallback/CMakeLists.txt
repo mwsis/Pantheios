@@ -55,6 +55,9 @@ target_compile_options(Pantheios.bec.stock.WithCallback
 		$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
 			-Werror -Wall -Wextra -pedantic
 
+			-Wno-unused-function
+			-Wno-unused-private-field # this (temporarily) for bec.test.cpp
+
 			-DPANTHEIOS_BE_USE_CALLBACK
 		>
 		$<$<CXX_COMPILER_ID:MSVC>:
@@ -64,7 +67,9 @@ target_compile_options(Pantheios.bec.stock.WithCallback
 		>
 )
 
-install(TARGETS Pantheios.bec.stock.WithCallback)
+install(TARGETS Pantheios.bec.stock.WithCallback
+	EXPORT project-targets
+)
 
 
 # ############################## end of file ############################# #

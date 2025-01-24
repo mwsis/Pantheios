@@ -13,7 +13,11 @@ target_link_STLSoft(Pantheios.fe.WindowsRegistry)
 
 define_target_compile_options(Pantheios.fe.WindowsRegistry)
 
-install(TARGETS Pantheios.fe.WindowsRegistry)
+install(TARGETS Pantheios.fe.WindowsRegistry
+	EXPORT project-targets
+)
+
+install_file(frontends fe.WindowsRegistry.h)
 
 
 # ############################## end of file ############################# #
