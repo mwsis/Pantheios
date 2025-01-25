@@ -16,6 +16,10 @@ endif(WIN32)
 add_subdirectory(test.unit.bec.fail)
 add_subdirectory(test.unit.bec.file)
 add_subdirectory(test.unit.bec.fprintf)
+if(WIN32)
+
+	add_subdirectory(test.unit.bec.speech)
+endif(WIN32)
 if(UNIX)
 
 	add_subdirectory(test.unit.bec.syslog)

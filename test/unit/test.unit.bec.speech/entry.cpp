@@ -1,9 +1,9 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:    test.unit.bec.syslog/entry.cpp
+ * File:    test.unit.bec.speech/entry.cpp
  *
- * Purpose: Unit-test for bec.syslog.
+ * Purpose: Unit-test for bec.speech.
  *
- * Created: 24th January 2025
+ * Created: 25th January 2025
  * Updated: 25th January 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
@@ -13,7 +13,7 @@
  * test component header file include(s)
  */
 
-#include <pantheios/backends/bec.syslog.h>
+#include <pantheios/backends/bec.speech.h>
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -34,15 +34,15 @@
  * forward declarations
  */
 
-static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_true();
-static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_false();
+static void TEST_pantheios_be_speech_WITH_ALL_STOCK_true();
+static void TEST_pantheios_be_speech_WITH_ALL_STOCK_false();
 
 
 /* /////////////////////////////////////////////////////////////////////////
  * globals
  */
 
-PANTHEIOS_EXTERN PAN_CHAR_T const PANTHEIOS_FE_PROCESS_IDENTITY[] = PANTHEIOS_LITERAL_STRING("test.unit.bec.syslog");
+PANTHEIOS_EXTERN PAN_CHAR_T const PANTHEIOS_FE_PROCESS_IDENTITY[] = PANTHEIOS_LITERAL_STRING("test.unit.bec.speech");
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -53,10 +53,10 @@ int main(int argc, char* argv[])
 
     XTESTS_COMMANDLINE_PARSEVERBOSITY(argc, argv, &verbosity);
 
-    if (XTESTS_START_RUNNER("test.unit.bec.syslog", verbosity))
+    if (XTESTS_START_RUNNER("test.unit.bec.speech", verbosity))
     {
-        XTESTS_RUN_CASE(TEST_pantheios_be_syslog_WITH_ALL_STOCK_true);
-        XTESTS_RUN_CASE(TEST_pantheios_be_syslog_WITH_ALL_STOCK_false);
+        XTESTS_RUN_CASE(TEST_pantheios_be_speech_WITH_ALL_STOCK_true);
+        XTESTS_RUN_CASE(TEST_pantheios_be_speech_WITH_ALL_STOCK_false);
 
         XTESTS_PRINT_RESULTS();
 
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_true()
+static void TEST_pantheios_be_speech_WITH_ALL_STOCK_true()
 {
     pantheios_slice_t args[] =
     {
@@ -87,13 +87,13 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_true()
     ,   { 18, "lowResolution=true" }
     ,   { 20, "numericSeverity=true" }
     /* custom */
-    ,   { 14, "useStderr=true" }
-    ,   { 15, "useConsole=true" }
-    ,   { 12, "showPid=true" }
-    ,   { 23, "connectImmediately=true" }
+    ,   { 16, "synchronous=true" }
+    ,   { 21, "purgeBeforeSpeak=true" }
+    ,   { 21, "speakPunctuation=true" }
+    ,   { 26, "synchronousOnCritical=true" }
     };
 
-    pan_be_syslog_init_t   init;
+    pan_be_speech_init_t   init;
 
     init.flags                      =   0
                                     /* stock */
@@ -110,15 +110,16 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_true()
                                     // |   PANTHEIOS_BE_INIT_F_LOW_RESOLUTION
                                     // |   PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY
                                     /* custom */
-                                    // |   PANTHEIOS_BE_SYSLOG_F_PERROR
-                                    // |   PANTHEIOS_BE_SYSLOG_F_CONS
-                                    // |   PANTHEIOS_BE_SYSLOG_F_PID
-                                    // |   PANTHEIOS_BE_SYSLOG_F_NDELAY
+                                    // |   PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS
+                                    // |   PANTHEIOS_BE_SPEECH_F_PURGE_BEFORE_SPEAK
+                                    // |   PANTHEIOS_BE_SPEECH_F_SPEAK_PUNCTUATION
+                                    // |   PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS_ON_CRITICAL
+                                    // // |   PANTHEIOS_BE_SPEECH_F_UNINIT_DISCARD_WORKAROUND
                                     ;
 
 
 
-    int const r = pantheios_be_syslog_parseArgs(STLSOFT_NUM_ELEMENTS(args), args, &init);
+    int const r = pantheios_be_speech_parseArgs(STLSOFT_NUM_ELEMENTS(args), args, &init);
 
     TEST_INTEGER_EQUAL(16, r);
 
@@ -137,16 +138,17 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_true()
                                     |   PANTHEIOS_BE_INIT_F_LOW_RESOLUTION
                                     |   PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY
                                     /* custom */
-                                    |   PANTHEIOS_BE_SYSLOG_F_PERROR
-                                    |   PANTHEIOS_BE_SYSLOG_F_CONS
-                                    |   PANTHEIOS_BE_SYSLOG_F_PID
-                                    |   PANTHEIOS_BE_SYSLOG_F_NDELAY
+                                    |   PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS
+                                    |   PANTHEIOS_BE_SPEECH_F_PURGE_BEFORE_SPEAK
+                                    |   PANTHEIOS_BE_SPEECH_F_SPEAK_PUNCTUATION
+                                    |   PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS_ON_CRITICAL
+                                    // |   PANTHEIOS_BE_SPEECH_F_UNINIT_DISCARD_WORKAROUND
                                     ;
 
     TEST_INTEGER_EQUAL(expected, init.flags);
 }
 
-static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_false()
+static void TEST_pantheios_be_speech_WITH_ALL_STOCK_false()
 {
     pantheios_slice_t args[] =
     {
@@ -165,13 +167,13 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_false()
     ,   { 19, "lowResolution=false" }
     ,   { 21, "numericSeverity=false" }
     /* custom */
-    ,   { 15, "useStderr=false" }
-    ,   { 16, "useConsole=false" }
-    ,   { 13, "showPid=false" }
-    ,   { 24, "connectImmediately=false" }
+    ,   { 17, "synchronous=false" }
+    ,   { 22, "purgeBeforeSpeak=false" }
+    ,   { 22, "speakPunctuation=false" }
+    ,   { 27, "synchronousOnCritical=false" }
     };
 
-    pan_be_syslog_init_t   init;
+    pan_be_speech_init_t   init;
 
     init.flags                      =   0
                                     /* stock */
@@ -188,13 +190,14 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_false()
                                     |   PANTHEIOS_BE_INIT_F_LOW_RESOLUTION
                                     |   PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY
                                     /* custom */
-                                    |   PANTHEIOS_BE_SYSLOG_F_PERROR
-                                    |   PANTHEIOS_BE_SYSLOG_F_CONS
-                                    |   PANTHEIOS_BE_SYSLOG_F_PID
-                                    |   PANTHEIOS_BE_SYSLOG_F_NDELAY
+                                    |   PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS
+                                    |   PANTHEIOS_BE_SPEECH_F_PURGE_BEFORE_SPEAK
+                                    |   PANTHEIOS_BE_SPEECH_F_SPEAK_PUNCTUATION
+                                    |   PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS_ON_CRITICAL
+                                    // |   PANTHEIOS_BE_SPEECH_F_UNINIT_DISCARD_WORKAROUND
                                     ;
 
-    int const r = pantheios_be_syslog_parseArgs(STLSOFT_NUM_ELEMENTS(args), args, &init);
+    int const r = pantheios_be_speech_parseArgs(STLSOFT_NUM_ELEMENTS(args), args, &init);
 
     TEST_INTEGER_EQUAL(16, r);
 
@@ -213,10 +216,11 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_false()
                                     // |   PANTHEIOS_BE_INIT_F_LOW_RESOLUTION
                                     // |   PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY
                                     /* custom */
-                                    // |   PANTHEIOS_BE_SYSLOG_F_PERROR
-                                    // |   PANTHEIOS_BE_SYSLOG_F_CONS
-                                    // |   PANTHEIOS_BE_SYSLOG_F_PID
-                                    // |   PANTHEIOS_BE_SYSLOG_F_NDELAY
+                                    // |   PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS
+                                    // |   PANTHEIOS_BE_SPEECH_F_PURGE_BEFORE_SPEAK
+                                    // |   PANTHEIOS_BE_SPEECH_F_SPEAK_PUNCTUATION
+                                    // |   PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS_ON_CRITICAL
+                                    // // |   PANTHEIOS_BE_SPEECH_F_UNINIT_DISCARD_WORKAROUND
                                     ;
 
     TEST_INTEGER_EQUAL(expected, init.flags);
