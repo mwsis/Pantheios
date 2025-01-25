@@ -24,6 +24,10 @@ if(UNIX)
 
 	add_subdirectory(test.unit.bec.syslog)
 endif(UNIX)
+if(WIN32)
+
+	add_subdirectory(test.unit.bec.WindowsConsole)
+endif(WIN32)
 add_subdirectory(test.unit.fe.N)
 if(WIN32)
 
