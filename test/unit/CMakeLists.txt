@@ -5,6 +5,7 @@ add_subdirectory(test.unit.be.N)
 add_subdirectory(test.unit.be.N.filtering)
 add_subdirectory(test.unit.be.fail)
 add_subdirectory(test.unit.be.lrsplit)
+add_subdirectory(test.unit.bec.AnsiConsole)
 if(WIN32)
 
 	add_subdirectory(test.unit.bec.COMErrorObject)
