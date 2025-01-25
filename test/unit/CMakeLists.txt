@@ -3,10 +3,6 @@ add_subdirectory(inserters)
 
 add_subdirectory(test.unit.be.N)
 add_subdirectory(test.unit.be.N.filtering)
-if(WIN32)
-
-	add_subdirectory(test.unit.be.WindowsSyslog)
-endif(WIN32)
 add_subdirectory(test.unit.be.fail)
 add_subdirectory(test.unit.be.lrsplit)
 if(WIN32)
@@ -27,6 +23,7 @@ endif(UNIX)
 if(WIN32)
 
 	add_subdirectory(test.unit.bec.WindowsConsole)
+	add_subdirectory(test.unit.bec.WindowsSyslog)
 endif(WIN32)
 add_subdirectory(test.unit.fe.N)
 if(WIN32)
