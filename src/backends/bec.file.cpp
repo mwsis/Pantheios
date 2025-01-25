@@ -4,7 +4,7 @@
  * Purpose: Implementation for the file back-end.
  *
  * Created: 25th November 2006
- * Updated: 28th October 2024
+ * Updated: 24th January 2025
  *
  * Thanks:  CookieRaver for filling in the (accidental) blanks in the UNIX
  *          implementation.
@@ -21,7 +21,7 @@
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -936,21 +936,22 @@ pantheios_be_file_parseArgs(
 
     // 1. Parse the stock arguments
     int res = pantheios_be_parseStockArgs(numArgs, args, &init->flags);
+    int r;
 
     if (res >= 0)
     {
         // 2.a Parse the custom argument: "fileName"
         pan_slice_t fileName;
 
-        res = pantheios_be_parseStringArg(numArgs, args, PANTHEIOS_LITERAL_STRING("fileName"), &fileName);
+        r = pantheios_be_parseStringArg(numArgs, args, PANTHEIOS_LITERAL_STRING("fileName"), &fileName);
 
-        if (res >= 0)
+        if (r >= 0)
         {
             if (fileName.len >= STLSOFT_NUM_ELEMENTS(init->buff))
             {
                 pantheios_onBailOut3(PANTHEIOS_SEV_CRITICAL, "be.file initialisation failed: 'fileName' argument value too long; must be <= " PANTHEIOS_STRINGIZE(PANTHEIOS_BE_FILE_MAX_FILE_LEN) " characters", NULL);
 
-                res = PANTHEIOS_INIT_RC_UNSPECIFIED_FAILURE;
+                r = PANTHEIOS_INIT_RC_UNSPECIFIED_FAILURE;
             }
             else
             {
@@ -960,28 +961,103 @@ pantheios_be_file_parseArgs(
             }
         }
 
-        if (res >= 0)
+        if (r < 0)
         {
-            // 2.b Parse the custom argument: "truncate"
-            res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("truncate"), false, PANTHEIOS_BE_FILE_F_TRUNCATE, &init->flags);
+            res = r;
         }
-
-        if (res >= 0)
+        else
         {
-            // 2.c Parse the custom argument: "discardCachedContents"
-            res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("discardCachedContents"), false, PANTHEIOS_BE_FILE_F_DISCARD_CACHED_CONTENTS, &init->flags);
+            res += r;
         }
+    }
 
-        if (res >= 0)
+    if (res >= 0)
+    {
+        // 2.b Parse the custom argument: "truncate"
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("truncate"), false, PANTHEIOS_BE_FILE_F_TRUNCATE, &init->flags);
+
+        if (r < 0)
         {
-            // 2.b Parse the custom argument: "writeWideContents"
-            res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("writeWideContents"), false, PANTHEIOS_BE_FILE_F_WRITE_WIDE_CONTENTS, &init->flags);
+            res = r;
         }
-
-        if (res >= 0)
+        else
         {
-            // 2.b Parse the custom argument: "writeMultibyteContents"
-            res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("writeMultibyteContents"), false, PANTHEIOS_BE_FILE_F_WRITE_MULTIBYTE_CONTENTS, &init->flags);
+            res += r;
+        }
+    }
+
+    if (res >= 0)
+    {
+        // 2.c Parse the custom argument: "discardCachedContents"
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("discardCachedContents"), false, PANTHEIOS_BE_FILE_F_DISCARD_CACHED_CONTENTS, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
+        }
+    }
+
+    if (res >= 0)
+    {
+        // 2.b Parse the custom argument: "shareOnWindows"
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("shareOnWindows"), false, PANTHEIOS_BE_FILE_F_SHARE_ON_WINDOWS, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
+        }
+    }
+
+    if (res >= 0)
+    {
+        // 2.b Parse the custom argument: "writeWideContents"
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("writeWideContents"), false, PANTHEIOS_BE_FILE_F_WRITE_WIDE_CONTENTS, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
+        }
+    }
+
+    if (res >= 0)
+    {
+        // 2.b Parse the custom argument: "writeMultibyteContents"
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("writeMultibyteContents"), false, PANTHEIOS_BE_FILE_F_WRITE_MULTIBYTE_CONTENTS, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
+        }
+    }
+
+    if (res >= 0)
+    {
+        // 2.b Parse the custom argument: "deleteIfEmpty"
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("deleteIfEmpty"), false, PANTHEIOS_BE_FILE_F_DELETE_IF_EMPTY, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
         }
     }
 

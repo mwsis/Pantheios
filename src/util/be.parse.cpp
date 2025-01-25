@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        src/util/be.parse.cpp
+ * File:    src/util/be.parse.cpp
  *
- * Purpose:     Utility functions for use in Pantheios back-ends.
+ * Purpose: Utility functions for use in Pantheios back-ends.
  *
- * Created:     19th August 2007
- * Updated:     16th July 2024
+ * Created: 19th August 2007
+ * Updated: 24th January 2025
  *
- * Home:        http://www.pantheios.org/
+ * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -131,7 +131,11 @@ pantheios_be_parseStockArgs_(
 
 namespace
 {
-    bool has_boolean_flag_value(string_view_t const& value, bool &flagIsOn)
+    bool
+    has_boolean_flag_value(
+        string_view_t const&    value
+    ,   bool&                   flagIsOn
+    )
     {
         // Can be one of:   yes, true, on, 1, no, false, off, 0 (in any case)
 
@@ -240,9 +244,9 @@ pantheios_be_parseBooleanArg_(
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API('\0' != 0[argName], "argument name may not be the empty string");
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != flags, "flags pointer may not be null");
 
-    int numProcessed = 0;
+    int numMatched = 0;
 
-    { for (size_t i = 0; i < numArgs; ++i)
+    { for (size_t i = 0; i != numArgs; ++i)
     {
         pantheios_slice_t& slice = *(args + i);
 
@@ -269,7 +273,7 @@ pantheios_be_parseBooleanArg_(
                     continue; // Invalid value. Mark to ignore
                 }
 
-                ++numProcessed;
+                ++numMatched;
 
                 if ((!flagIsOn) != (!flagSuppressesAction))
                 {
@@ -283,7 +287,7 @@ pantheios_be_parseBooleanArg_(
         }
     }}
 
-    return numProcessed;
+    return numMatched;
 }
 
 PANTHEIOS_CALL(int)
@@ -339,9 +343,9 @@ pantheios_be_parseStringArg_(
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API('\0' != 0[argName], "argument name may not be the empty string");
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != argValue, "argument value pointer may not be null");
 
-    int numProcessed = 0;
+    int numMatched = 0;
 
-    { for (size_t i = 0; i < numArgs; ++i)
+    { for (size_t i = 0; i != numArgs; ++i)
     {
         pantheios_slice_t& slice = *(args + i);
 
@@ -355,7 +359,7 @@ pantheios_be_parseStringArg_(
 
             if (name == argName)
             {
-                ++numProcessed;
+                ++numMatched;
 
                 argValue->len   =   value.size();
                 argValue->ptr   =   value.data();
@@ -367,7 +371,7 @@ pantheios_be_parseStringArg_(
         }
     }}
 
-    return numProcessed;
+    return numMatched;
 }
 
 PANTHEIOS_CALL(int)
@@ -419,9 +423,9 @@ pantheios_be_parseStockArgs_(
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API((NULL != args || 0 == numArgs), "arguments pointer may only be null if the number of arguments is 0");
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != flags, "flags pointer may not be null");
 
-    int numProcessed = 0;
+    int numMatched = 0;
 
-    { for (size_t i = 0; i < numArgs; ++i)
+    { for (size_t i = 0; i != numArgs; ++i)
     {
         pantheios_slice_t& slice = *(args + i);
 
@@ -450,7 +454,7 @@ pantheios_be_parseStockArgs_(
                 else if (name == PANTHEIOS_LITERAL_STRING("showThreadId"))
                 {
                     flagSuppresses  =   true;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_NO_PROCESS_ID;
+                    flagValue       =   PANTHEIOS_BE_INIT_F_NO_THREAD_ID;
                 }
                 // PANTHEIOS_BE_INIT_F_NO_DATETIME
                 else if (name == PANTHEIOS_LITERAL_STRING("showDateTime"))
@@ -528,11 +532,29 @@ pantheios_be_parseStockArgs_(
                     continue; // Invalid value. Mark to ignore
                 }
 
-                ++numProcessed;
+                ++numMatched;
 
-                if ((!flagIsOn) != (!flagSuppresses))
+                if (flagSuppresses)
                 {
-                    *flags |= flagValue;
+                    if (flagIsOn)
+                    {
+                        *flags &= ~flagValue;
+                    }
+                    else
+                    {
+                        *flags |= flagValue;
+                    }
+                }
+                else
+                {
+                    if (flagIsOn)
+                    {
+                        *flags |= flagValue;
+                    }
+                    else
+                    {
+                        *flags &= ~flagValue;
+                    }
                 }
 
                 slice.len = 0; // Mark this slice as having been processed successfully
@@ -540,8 +562,9 @@ pantheios_be_parseStockArgs_(
         }
     }}
 
-    return numProcessed;
+    return numMatched;
 }
+
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

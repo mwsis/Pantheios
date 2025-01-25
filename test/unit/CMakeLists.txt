@@ -16,6 +16,10 @@ endif(WIN32)
 add_subdirectory(test.unit.bec.fail)
 add_subdirectory(test.unit.bec.file)
 add_subdirectory(test.unit.bec.fprintf)
+if(UNIX)
+
+	add_subdirectory(test.unit.bec.syslog)
+endif(UNIX)
 add_subdirectory(test.unit.fe.N)
 if(WIN32)
 
@@ -45,6 +49,7 @@ if(shwild_FOUND)
 
 	add_subdirectory(test.unit.util.onbailout)
 endif(shwild_FOUND)
+add_subdirectory(test.unit.util.parse_args)
 add_subdirectory(test.unit.util.snprintf)
 add_subdirectory(test.unit.util.strnlen)
 
