@@ -436,20 +436,19 @@ pantheios_be_parseStockArgs_(
 
     static const option_mapping_t s_mappings[] =
     {
-        {   PANTHEIOS_LITERAL_STRING("showProcessId"),      PANTHEIOS_BE_INIT_F_NO_PROCESS_ID,      true    },
-        {   PANTHEIOS_LITERAL_STRING("showThreadId"),       PANTHEIOS_BE_INIT_F_NO_THREAD_ID,       true    },
-        {   PANTHEIOS_LITERAL_STRING("showDateTime"),       PANTHEIOS_BE_INIT_F_NO_DATETIME,        true    },
-        {   PANTHEIOS_LITERAL_STRING("showSeverity"),       PANTHEIOS_BE_INIT_F_NO_SEVERITY,        true    },
-        {   PANTHEIOS_LITERAL_STRING("useSystemTime"),      PANTHEIOS_BE_INIT_F_USE_SYSTEM_TIME,    false   },
-        {   PANTHEIOS_LITERAL_STRING("showDetailsAtStart"), PANTHEIOS_BE_INIT_F_DETAILS_AT_START,   false   },
-        {   PANTHEIOS_LITERAL_STRING("useUnixFormat"),      PANTHEIOS_BE_INIT_F_USE_UNIX_FORMAT,    false   },
-        {   PANTHEIOS_LITERAL_STRING("useUNIXFormat"),      PANTHEIOS_BE_INIT_F_USE_UNIX_FORMAT,    false   },
-        {   PANTHEIOS_LITERAL_STRING("showDate"),           PANTHEIOS_BE_INIT_F_HIDE_DATE,          true    },
-        {   PANTHEIOS_LITERAL_STRING("showTime"),           PANTHEIOS_BE_INIT_F_HIDE_TIME,          true    },
         {   PANTHEIOS_LITERAL_STRING("highResolution"),     PANTHEIOS_BE_INIT_F_HIGH_RESOLUTION,    false   },
         {   PANTHEIOS_LITERAL_STRING("lowResolution"),      PANTHEIOS_BE_INIT_F_LOW_RESOLUTION,     false   },
         {   PANTHEIOS_LITERAL_STRING("numericSeverity"),    PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY,   false   },
-        {   NULL,   0,   true    }
+        {   PANTHEIOS_LITERAL_STRING("showDate"),           PANTHEIOS_BE_INIT_F_HIDE_DATE,          true    },
+        {   PANTHEIOS_LITERAL_STRING("showDateTime"),       PANTHEIOS_BE_INIT_F_NO_DATETIME,        true    },
+        {   PANTHEIOS_LITERAL_STRING("showDetailsAtStart"), PANTHEIOS_BE_INIT_F_DETAILS_AT_START,   false   },
+        {   PANTHEIOS_LITERAL_STRING("showProcessId"),      PANTHEIOS_BE_INIT_F_NO_PROCESS_ID,      true    },
+        {   PANTHEIOS_LITERAL_STRING("showSeverity"),       PANTHEIOS_BE_INIT_F_NO_SEVERITY,        true    },
+        {   PANTHEIOS_LITERAL_STRING("showThreadId"),       PANTHEIOS_BE_INIT_F_NO_THREAD_ID,       true    },
+        {   PANTHEIOS_LITERAL_STRING("showTime"),           PANTHEIOS_BE_INIT_F_HIDE_TIME,          true    },
+        {   PANTHEIOS_LITERAL_STRING("useSystemTime"),      PANTHEIOS_BE_INIT_F_USE_SYSTEM_TIME,    false   },
+        {   PANTHEIOS_LITERAL_STRING("useUnixFormat"),      PANTHEIOS_BE_INIT_F_USE_UNIX_FORMAT,    false   },
+        {   PANTHEIOS_LITERAL_STRING("useUNIXFormat"),      PANTHEIOS_BE_INIT_F_USE_UNIX_FORMAT,    false   },
     };
 
 
@@ -488,6 +487,13 @@ pantheios_be_parseStockArgs_(
                             flagValue       =   mapping.flag;
 
                             found           =   true;
+                            break;
+                        }
+
+                        // NOTE: this is a half-optimisation, based on `s_mappings` being
+                        // ordered. If this was performance sensitive then we might b-chop
+                        if (name < mapping.name)
+                        {
                             break;
                         }
                     }
