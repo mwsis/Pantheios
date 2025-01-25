@@ -305,20 +305,6 @@ static void TEST_pantheios_be_WindowsSyslog_WITH_ALL_STOCK_true()
     ,   { 15, "useConsole=true" }
     ,   { 12, "showPid=true" }
     ,   { 23, "connectImmediately=true" }
-
-
-
-/*
- * - "address"                  (String: hostname or dotted IPv4 address)
- * - "port"                     (Number)
- * - "facility"                 (Number)
- *
- * - "useStderr"                (Boolean)
- * - "useConsole"               (Boolean)
- * - "showPid"                  (Boolean)
- * - "connectImmediately"       (Boolean)
- */
-
     };
 
     pan_be_WindowsSyslog_init_t init;
