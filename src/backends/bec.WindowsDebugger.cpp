@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        src/backends/bec.WindowsDebugger.cpp
+ * File:    src/backends/bec.WindowsDebugger.cpp
  *
- * Purpose:     Implementation for the WindowsDebugger back-end
+ * Purpose: Implementation for the WindowsDebugger back-end
  *
- * Created:     18th July 2005
- * Updated:     16th July 2024
+ * Created: 18th July 2005
+ * Updated: 27th January 2025
  *
- * Home:        http://www.pantheios.org/
+ * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -279,7 +279,7 @@ WindowsDebugger_Context::WindowsDebugger_Context(
 ,   int                                     backEndId
 ,   pan_be_WindowsDebugger_init_t const*    init
 )
-    : parent_class_type(processIdentity, backEndId, init->flags, WindowsDebugger_Context::severityMask)
+    : parent_class_type(processIdentity, backEndId, init->flags, class_type::severityMask)
 {}
 
 WindowsDebugger_Context::~WindowsDebugger_Context() throw()

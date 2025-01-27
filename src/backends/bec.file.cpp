@@ -4,7 +4,7 @@
  * Purpose: Implementation for the file back-end.
  *
  * Created: 25th November 2006
- * Updated: 24th January 2025
+ * Updated: 27th January 2025
  *
  * Thanks:  CookieRaver for filling in the (accidental) blanks in the UNIX
  *          implementation.
@@ -1074,7 +1074,7 @@ be_file_Context::be_file_Context(
 ,   int                         backEndId
 ,   pan_be_file_init_t const&   init
 )
-    : parent_class_type(processIdentity, backEndId, init.flags, be_file_Context::severityMask)
+    : parent_class_type(processIdentity, backEndId, init.flags, class_type::severityMask)
     , m_hFile(FileErrorValue)
     , m_filePath()
     , m_flags(init.flags)

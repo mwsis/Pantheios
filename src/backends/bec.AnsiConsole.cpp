@@ -1,10 +1,10 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:    src/backends/bec.WindowsConsole.cpp
+ * File:    src/backends/bec.AnsiConsole.cpp
  *
  * Purpose: Implementation of the Pantheios ANSI-Console Stock Back-end API.
  *
  * Created: 20th October 2024
- * Updated: 25th January 2025
+ * Updated: 28th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -48,13 +48,122 @@
 #include <pantheios/backends/bec.AnsiConsole.h>
 #include <pantheios/internal/safestr.h>
 
+#include <pantheios/init_codes.h>
+#include <pantheios/util/core/apidefs.hpp>
 #include <pantheios/util/backends/arguments.h>
+#include <pantheios/util/backends/context.hpp>
 
 #include <stlsoft/stlsoft.h>
 #include <platformstl/system/console_functions.h>
 
+#include <utility>
+
 #include <stdio.h>
 
+
+/* /////////////////////////////////////////////////////////////////////////
+ * string encoding compatibility
+ */
+
+#ifdef PANTHEIOS_USE_WIDE_STRINGS
+
+# define pan_fprintf_                                       ::fwprintf
+#else /* ? PANTHEIOS_USE_WIDE_STRINGS */
+
+# define pan_fprintf_                                       ::fprintf
+#endif /* PANTHEIOS_USE_WIDE_STRINGS */
+
+
+/* /////////////////////////////////////////////////////////////////////////
+ * constants
+ */
+
+
+/* /////////////////////////////////////////////////////////////////////////
+ * compatibility
+ */
+
+
+/* /////////////////////////////////////////////////////////////////////////
+ * namespace
+ */
+
+namespace {
+
+#if !defined(PANTHEIOS_NO_NAMESPACE)
+    using ::pantheios::pan_slice_t;
+    using ::pantheios::pantheios_getStockSeverityStringSlice;
+    using ::pantheios::util::backends::Context;
+#endif /* !PANTHEIOS_NO_NAMESPACE */
+#if !defined(PLATFORMSTL_NO_NAMESPACE)
+    using platformstl::platformstl_C_isatty_stm;
+#endif /* !PLATFORMSTL_NO_NAMESPACE */
+
+    struct AnsiConsole_Context
+        : public Context
+    {
+    public: // types
+        typedef Context                                         parent_class_type;
+        typedef AnsiConsole_Context                             class_type;
+
+
+    public: // constants
+        enum
+        {
+            severityMask    =   0x0f
+        };
+
+
+    public: // construction
+        AnsiConsole_Context(
+            PAN_CHAR_T const*                   processIdentity
+        ,   int                                 backEndId
+        ,   pan_be_AnsiConsole_init_t const*    init
+        );
+        ~AnsiConsole_Context() throw();//STLSOFT_NOEXCEPT;
+    private:
+        AnsiConsole_Context(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+        void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
+
+
+    private: // overrides
+        virtual int rawLogEntry(
+            int                 severity4
+        ,   int                 severityX
+        ,   const pan_slice_t (&ar)[rawLogArrayDimension]
+        ,   size_t              cchTotal
+        );
+        virtual int rawLogEntry(
+            int                 severity4
+        ,   int                 severityX
+        ,   PAN_CHAR_T const*   entry
+        ,   size_t              cchEntry
+        );
+
+
+    private: // implementation
+        static
+        std::pair<
+            char const*
+        ,   char const*
+        >
+        severity_to_ansi_strings_(
+            FILE*               stm
+        ,   pantheios_uint32_t  flags
+        ,   int                 severity4
+        ) STLSOFT_NOEXCEPT;
+
+
+    private: // fields
+        FILE* const                 m_stm;
+        pantheios_uint32_t const    m_flags;
+    };
+} /* anonymous namespace */
+
+
+/* /////////////////////////////////////////////////////////////////////////
+ * API functions
+ */
 
 PANTHEIOS_CALL(void)
 pantheios_be_AnsiConsole_getDefaultAppInit(
@@ -87,31 +196,104 @@ pantheios_be_AnsiConsole_getDefaultAppInit(
 }
 
 
-PANTHEIOS_CALL(int)
-pantheios_be_AnsiConsole_init(
+static int
+pantheios_be_AnsiConsole_init_(
     PAN_CHAR_T const*                   processIdentity
-,   int                                 id
+,   int                                 backEndId
 ,   pan_be_AnsiConsole_init_t const*    init
 ,   void*                               reserved
 ,   void**                              ptoken
 )
 {
-    ((void)&processIdentity);
-    ((void)&id);
-    ((void)&init);
-    ((void)&reserved);
-    ((void)&ptoken);
+    STLSOFT_SUPPRESS_UNUSED(processIdentity);
+    STLSOFT_SUPPRESS_UNUSED(init);
+    STLSOFT_SUPPRESS_UNUSED(reserved);
+    STLSOFT_SUPPRESS_UNUSED(ptoken);
 
+    /* (i) apply Null Object (Variable) pattern */
 
-    return -1;
+    pan_be_AnsiConsole_init_t init_;
+
+    if (NULL == init)
+    {
+        pantheios_be_AnsiConsole_getDefaultAppInit(&init_);
+
+#ifdef PANTHEIOS_BE_USE_CALLBACK
+        pantheios_be_AnsiConsole_getAppInit(backEndId, &init_);
+#endif /* PANTHEIOS_BE_USE_CALLBACK */
+
+        init = &init_;
+    }
+
+    /* (ii) verify the version */
+
+    if (init->version < 0x010001da)
+    {
+        return PANTHEIOS_BE_INIT_RC_OLD_VERSION_NOT_SUPPORTED;
+    }
+    else if (init->version > PANTHEIOS_VER)
+    {
+        return PANTHEIOS_BE_INIT_RC_FUTURE_VERSION_REQUESTED;
+    }
+
+    /* (iii) create the context */
+
+    AnsiConsole_Context* ctxt = new AnsiConsole_Context(processIdentity, backEndId, init);
+
+#ifndef STLSOFT_CF_THROW_BAD_ALLOC
+
+    if (NULL == ctxt ||
+        NULL == ctxt->getProcessIdentity())
+    {
+        delete ctxt;
+
+        return PANTHEIOS_INIT_RC_OUT_OF_MEMORY;
+    }
+#endif /* !STLSOFT_CF_THROW_BAD_ALLOC */
+
+    *ptoken = ctxt;
+
+    return 0;
+}
+
+PANTHEIOS_CALL(int)
+pantheios_be_AnsiConsole_init(
+    PAN_CHAR_T const*                   processIdentity
+,   int                                 backEndId
+,   pan_be_AnsiConsole_init_t const*    init
+,   void*                               reserved
+,   void**                              ptoken
+)
+{
+    return pantheios_call_be_X_init<pan_be_AnsiConsole_init_t>(pantheios_be_AnsiConsole_init_, processIdentity, backEndId, init, reserved, ptoken, "be.AnsiConsole");
 }
 
 PANTHEIOS_CALL(void)
 pantheios_be_AnsiConsole_uninit(void* token)
 {
-    ((void)&token);
+    PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != token, "token must be non-null");
 
+    AnsiConsole_Context* const ctxt = static_cast<AnsiConsole_Context*>(token);
 
+    delete ctxt;
+}
+
+static int
+pantheios_be_AnsiConsole_logEntry_(
+    void*               feToken
+,   void*               beToken
+,   int                 severity
+,   PAN_CHAR_T const*   entry
+,   size_t              cchEntry
+)
+{
+    PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != beToken, "back-end token must be non-null");
+
+    STLSOFT_SUPPRESS_UNUSED(feToken);
+
+    AnsiConsole_Context* const ctxt = static_cast<AnsiConsole_Context*>(beToken);
+
+    return ctxt->logEntry(severity, entry, cchEntry);
 }
 
 PANTHEIOS_CALL(int)
@@ -123,66 +305,9 @@ pantheios_be_AnsiConsole_logEntry(
 ,   size_t              cchEntry
 )
 {
-#if !defined(PANTHEIOS_NO_NAMESPACE)
-    using pantheios::pantheios_getStockSeverityStringSlice;
-#endif /* !PANTHEIOS_NO_NAMESPACE */
-#if !defined(PLATFORMSTL_NO_NAMESPACE)
-    using platformstl::platformstl_C_isatty_stm;
-#endif /* !PLATFORMSTL_NO_NAMESPACE */
-
-    ((void)&feToken);
-    ((void)&beToken);
-
-
-    FILE*       stm =   stderr;
-    auto const  sss =   pantheios_getStockSeverityStringSlice(severity);
-
-    // There are three points at
-
-    char const* pre;
-    char const* post;
-
-    if (platformstl_C_isatty_stm(stderr))
-    {
-        switch (severity & 0xf)
-        {
-        case  0: pre = "\033[1;34;41;5m"; break;
-        case  1: pre = "\033[1;33;41;5m"; break;
-        case  2: pre = "\033[1;33;41m"; break;
-        case  3: pre = "\033[1;31m"; break;
-        case  4: pre = "\033[1;33m"; break;
-        case  5: pre = "\033[1;30m"; break;
-        case  6: pre = "\033[1;30m"; break;
-        case  7: pre = "\033[1;34m"; break;
-        case  8: pre = "\034[1;34m"; break;
-        case  9: pre = "\034[0;34m"; break;
-        case 10: pre = "\034[0;34m"; break;
-        case 11: pre = "\034[0;34m"; break;
-        case 12: pre = "\034[0;34m"; break;
-        case 13: pre = "\034[0;34m"; break;
-        case 14: pre = "\034[0;34m"; break;
-        case 15: pre = "\034[0;34m"; break;
-        }
-
-        post = "\033[0m";
-    }
-    else
-    {
-        pre = "";
-        post = "";
-    }
-
-    fprintf(
-        stm
-    ,   "[%s%.*s%s]: %.*s\n"
-    ,   pre
-    ,   int(sss.len), sss.ptr
-    ,   post
-    ,   int(cchEntry), entry
-    );
-
-    return 0;
+    return pantheios_call_be_logEntry(pantheios_be_AnsiConsole_logEntry_, feToken, beToken, severity, entry, cchEntry, "be.AnsiConsole");
 }
+
 
 PANTHEIOS_CALL(int)
 pantheios_be_AnsiConsole_parseArgs(
@@ -278,6 +403,208 @@ pantheios_be_AnsiConsole_parseArgs(
     return res;
 }
 
+
+/* /////////////////////////////////////////////////////////////////////////
+ * AnsiConsole_Context
+ */
+
+namespace {
+
+    /* static */
+    std::pair<
+        char const*
+    ,   char const*
+    >
+    AnsiConsole_Context::severity_to_ansi_strings_(
+        FILE*               stm
+    ,   pantheios_uint32_t  flags
+    ,   int                 severity4
+    ) STLSOFT_NOEXCEPT
+    {
+        char const* pre     =   "";
+        char const* post    =   "";
+
+        if (0 == (PANTHEIOS_BE_ANSICONSOLE_F_NO_COLOURS & flags))
+        {
+            if (0 != (PANTHEIOS_BE_ANSICONSOLE_F_FORCE_ANSI_ESCAPE_SEQUENCES & flags) ||
+                platformstl_C_isatty_stm(stm))
+            {
+                switch (severity4 & 0xf)
+                {
+                case  0: pre = "\033[1;34;41;5m"; break;
+                case  1: pre = "\033[1;93;41;5m"; break;
+                case  2: pre = "\033[1;93;41m"; break;
+                case  3: pre = "\033[1;33;41m"; break;
+                case  4: pre = "\033[1;93;40m"; break;
+                case  5: pre = "\033[1;92;40m"; break;
+                case  6: pre = "\033[1;32;40m"; break;
+                case  7: pre = "\033[1;94;40m"; break;
+                case  8: pre = "\033[1;94;40m"; break;
+                case  9: pre = "\033[0;94;40m"; break;
+                case 10: pre = "\033[0;94;40m"; break;
+                case 11: pre = "\033[0;94;40m"; break;
+                case 12: pre = "\033[0;94;40m"; break;
+                case 13: pre = "\033[0;94;40m"; break;
+                case 14: pre = "\033[0;94;40m"; break;
+                case 15: pre = "\033[1;36;40m"; break;
+                }
+
+                post = "\033[0m";
+            }
+        }
+
+        return std::make_pair(pre, post);
+    }
+
+    AnsiConsole_Context::AnsiConsole_Context(
+        PAN_CHAR_T const*                   processIdentity
+    ,   int                                 backEndId
+    ,   pan_be_AnsiConsole_init_t const*    init
+    )
+        : parent_class_type(processIdentity, backEndId, init->flags, class_type::severityMask)
+        , m_stm(stderr)
+        , m_flags(init->flags)
+    {}
+
+    AnsiConsole_Context::~AnsiConsole_Context() throw()//STLSOFT_NOEXCEPT
+    {}
+
+    int
+    AnsiConsole_Context::rawLogEntry(
+        int                 severity4
+    ,   int                 severityX
+    ,   const pan_slice_t (&ar)[rawLogArrayDimension]
+    ,   size_t              cchTotal
+    )
+    {
+        PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_INTERNAL(severity4 >= 0, "severity must be >= 0");
+        PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_INTERNAL(severity4 < 16, "severity must be < 16");
+
+        std::pair<
+            char const*
+        ,   char const*
+        >   pp = severity_to_ansi_strings_(m_stm, m_flags, severity4);
+
+        char const* b_0 = "";
+        char const* a_0 = "";
+
+        char const* b_1 = "";
+        char const* a_1 = "";
+
+        char const* b_2 = "";
+        char const* a_2 = "";
+
+        char const* b_3 = "";
+        char const* a_3 = "";
+
+        char const* b_4 = "";
+        char const* a_4 = "";
+
+        char const* b_5 = "";
+        char const* a_5 = "";
+
+        char const* b_6 = "";
+        char const* a_6 = "";
+
+        char const* b_7 = "";
+        char const* a_7 = "";
+
+        char const* b_8 = "";
+        char const* a_8 = "";
+
+        char const* b_9 = "";
+        char const* a_9 = "";
+
+        if (0 != (PANTHEIOS_BE_INIT_F_DETAILS_AT_START & m_flags))
+        {
+            if (0 != (PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_WHOLE_PREFIX & m_flags))
+            {
+                b_2 = pp.first;
+            }
+            else
+            {
+                b_8 = pp.first;
+            }
+
+            a_8 = pp.second;
+
+            if (0 != (PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_MESSAGE & m_flags))
+            {
+                b_0 = pp.first;
+                a_0 = pp.second;
+            }
+        }
+        else
+        {
+            if (0 != (PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_WHOLE_PREFIX & m_flags))
+            {
+                b_1 = pp.first;
+            }
+            else
+            {
+                b_7 = pp.first;
+            }
+
+            a_7 = pp.second;
+
+            if (0 != (PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_MESSAGE & m_flags))
+            {
+                b_9 = pp.first;
+                a_9 = pp.second;
+            }
+        }
+
+
+        const PAN_CHAR_T    fmt[]   =   PANTHEIOS_LITERAL_STRING("%s%.*s%s%s%.*s%s%s%.*s%s%s%.*s%s%s%.*s%s%s%.*s%s%s%.*s%s%s%.*s%s%s%.*s%s%s%.*s%s\n");
+
+        STLSOFT_STATIC_ASSERT(rawLogArrayDimension * (2 + 4 + 2) + 2 == STLSOFT_NUM_ELEMENTS(fmt));
+
+        // fprintf the array of slices
+
+#define PAN_BE_GET_SLICE_4_PRINTF(x)    int(x.len), x.ptr
+
+        return pan_fprintf_(m_stm, fmt
+                        ,   b_0, PAN_BE_GET_SLICE_4_PRINTF(ar[0]), a_0
+                        ,   b_1, PAN_BE_GET_SLICE_4_PRINTF(ar[1]), a_1
+                        ,   b_2, PAN_BE_GET_SLICE_4_PRINTF(ar[2]), a_2
+                        ,   b_3, PAN_BE_GET_SLICE_4_PRINTF(ar[3]), a_3
+                        ,   b_4, PAN_BE_GET_SLICE_4_PRINTF(ar[4]), a_4
+                        ,   b_5, PAN_BE_GET_SLICE_4_PRINTF(ar[5]), a_5
+                        ,   b_6, PAN_BE_GET_SLICE_4_PRINTF(ar[6]), a_6
+                        ,   b_7, PAN_BE_GET_SLICE_4_PRINTF(ar[7]), a_7
+                        ,   b_8, PAN_BE_GET_SLICE_4_PRINTF(ar[8]), a_8
+                        ,   b_9, PAN_BE_GET_SLICE_4_PRINTF(ar[9]), a_9
+                        );
+
+        return 0;
+    }
+
+    int
+    AnsiConsole_Context::rawLogEntry(
+        int                 severity4
+    ,   int              /* severityX */
+    ,   PAN_CHAR_T const*   entry
+    ,   size_t              cchEntry
+    )
+    {
+        FILE* const stm = m_stm;
+
+        std::pair<
+            char const*
+        ,   char const*
+        >   pp = (0 != (PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_MESSAGE & m_flags)) ? severity_to_ansi_strings_(m_stm, m_flags, severity4) : std::make_pair("", "");
+
+        pan_fprintf_(
+            stm
+        ,   "%s%.*s%s\n"
+        ,   pp.first
+        ,   int(cchEntry), entry
+        ,   pp.second
+        );
+
+        return 0;
+    }
+} /* anonymous namespace */
 
 
 /* ///////////////////////////// end of file //////////////////////////// */

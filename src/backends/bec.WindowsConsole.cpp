@@ -4,7 +4,7 @@
  * Purpose: Implementation of the Pantheios Windows-Console Stock Back-end API.
  *
  * Created: 17th July 2006
- * Updated: 25th January 2025
+ * Updated: 28th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -285,8 +285,8 @@ namespace
         );
         ~WindowsConsole_Context() throw();
     private:
-        WindowsConsole_Context(class_type const&);  // copy-construction proscribed
-        class_type &operator =(class_type const&);  // copy-assignment proscribed
+        WindowsConsole_Context(class_type const&) STLSOFT_COPY_CONSTRUCTION_PROSCRIBED;
+        void operator =(class_type const&) STLSOFT_COPY_ASSIGNMENT_PROSCRIBED;
     /// @}
 
     /// \name Overrides
@@ -373,7 +373,8 @@ namespace
  * API functions
  */
 
-PANTHEIOS_CALL(void) pantheios_be_WindowsConsole_getDefaultAppInit(pan_be_WindowsConsole_init_t* init)
+PANTHEIOS_CALL(void)
+pantheios_be_WindowsConsole_getDefaultAppInit(pan_be_WindowsConsole_init_t* init)
 {
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != init, "initialisation structure pointer may not be null");
 
@@ -454,7 +455,8 @@ static int pantheios_be_WindowsConsole_init_(
     return 0;
 }
 
-PANTHEIOS_CALL(int) pantheios_be_WindowsConsole_init(
+PANTHEIOS_CALL(int)
+pantheios_be_WindowsConsole_init(
     PAN_CHAR_T const*                   processIdentity
 ,   int                                 backEndId
 ,   pan_be_WindowsConsole_init_t const* init
@@ -465,7 +467,8 @@ PANTHEIOS_CALL(int) pantheios_be_WindowsConsole_init(
     return pantheios_call_be_X_init<pan_be_WindowsConsole_init_t>(pantheios_be_WindowsConsole_init_, processIdentity, backEndId, init, reserved, ptoken, "be.WindowsConsole");
 }
 
-PANTHEIOS_CALL(void) pantheios_be_WindowsConsole_uninit(void* token)
+PANTHEIOS_CALL(void)
+pantheios_be_WindowsConsole_uninit(void* token)
 {
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != token, "token must be non-null");
 
@@ -486,12 +489,13 @@ static int pantheios_be_WindowsConsole_logEntry_(
 
     STLSOFT_SUPPRESS_UNUSED(feToken);
 
-    Context* ctxt = static_cast<Context*>(beToken);
+    Context* const ctxt = static_cast<Context*>(beToken);
 
     return ctxt->logEntry(severity, entry, cchEntry);
 }
 
-PANTHEIOS_CALL(int) pantheios_be_WindowsConsole_logEntry(
+PANTHEIOS_CALL(int)
+pantheios_be_WindowsConsole_logEntry(
     void*               feToken
 ,   void*               beToken
 ,   int                 severity
@@ -581,7 +585,7 @@ WindowsConsole_Context::WindowsConsole_Context(
 ,   int                                 backEndId
 ,   pan_be_WindowsConsole_init_t const* init
 )
-    : parent_class_type(processIdentity, backEndId, init->flags, WindowsConsole_Context::severityMask)
+    : parent_class_type(processIdentity, backEndId, init->flags, class_type::severityMask)
     , m_map()
     , m_defaultColours(lookupConsoleCharacteristics())
 {

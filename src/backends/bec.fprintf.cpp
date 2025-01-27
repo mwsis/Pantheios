@@ -4,11 +4,11 @@
  * Purpose: Implementation for the fprintf() back-end
  *
  * Created: 26th June 2005
- * Updated: 23rd October 2024
+ * Updated: 28th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -293,7 +293,7 @@ be_fprintf_Context::be_fprintf_Context(
 ,   int                             backEndId
 ,   pan_be_fprintf_init_t const*    init
 )
-    : parent_class_type(processIdentity, backEndId, init->flags, be_fprintf_Context::severityMask)
+    : parent_class_type(processIdentity, backEndId, init->flags, class_type::severityMask)
     , m_stm(infer_stm_(init))
 {}
 
@@ -311,8 +311,6 @@ int be_fprintf_Context::rawLogEntry(
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_INTERNAL(severity4 < 16, "severity must be < 16");
 
     STLSOFT_SUPPRESS_UNUSED(severity4);
-
-    // select the stream: stdout for debug/info/notice; stderr for everything else
 
     const PAN_CHAR_T    fmt[]   =   PANTHEIOS_LITERAL_STRING("%.*s%.*s%.*s%.*s%.*s%.*s%.*s%.*s%.*s%.*s\n");
 

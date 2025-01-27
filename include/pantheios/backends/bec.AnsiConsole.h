@@ -4,7 +4,7 @@
  * Purpose: Declaration of the Pantheios AnsiConsole Stock Back-end API.
  *
  * Created: 20th October 2024
- * Updated: 25th January 2025
+ * Updated: 28th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -55,8 +55,8 @@
 #ifndef PANTHEIOS_DOCUMENTATION_SKIP_SECTION
 # define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_ANSICONSOLE_MAJOR       1
 # define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_ANSICONSOLE_MINOR       0
-# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_ANSICONSOLE_REVISION    2
-# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_ANSICONSOLE_EDIT        2
+# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_ANSICONSOLE_REVISION    3
+# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_ANSICONSOLE_EDIT        3
 #endif /* !PANTHEIOS_DOCUMENTATION_SKIP_SECTION */
 
 
@@ -105,7 +105,8 @@
 /** \def PANTHEIOS_BE_ANSICONSOLE_F_FORCE_ANSI_ESCAPE_SEQUENCES
  *  Causes the \ref group__backend__stock_backends__AnsiConsole
  *   to write ANSI escape sequences regardless of the console/terminal mode,
- *   i.e. even if the output is being redirected.
+ *   i.e. even if the output is being redirected. Ignored when
+ *   PANTHEIOS_BE_ANSICONSOLE_F_NO_COLOURS is specified.
  * \ingroup group__backend__stock_backends__AnsiConsole__flags
  */
 

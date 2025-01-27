@@ -14,7 +14,11 @@ target_link_STLSoft(Pantheios.bec.AnsiConsole)
 list(APPEND X_GCC_CUSTOM_WARNINGS_TO_BE_SUPPRESSED unused-parameter)
 define_target_compile_options(Pantheios.bec.AnsiConsole)
 
-install(TARGETS Pantheios.bec.AnsiConsole)
+install(TARGETS Pantheios.bec.AnsiConsole
+	EXPORT project-targets
+)
+
+install_file(backends bec.AnsiConsole.h)
 
 
 # ############################## end of file ############################# #

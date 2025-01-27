@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        src/util/be.context.cpp
+ * File:    src/util/be.context.cpp
  *
- * Purpose:     Implementation of pantheios::util::backends::Context.
+ * Purpose: Implementation of pantheios::util::backends::Context.
  *
- * Created:     18th December 2006
- * Updated:     17th December 2023
+ * Created: 18th December 2006
+ * Updated: 27th January 2025
  *
- * Home:        http://www.pantheios.org/
+ * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -115,7 +115,8 @@ make_process_identity_(
 #endif /* STLSOFT_CF_THROW_BAD_ALLOC */
 }
 
-inline int check_severity_mask_(int severityMask)
+inline int
+check_severity_mask_(int severityMask)
 {
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(0 == (severityMask & ~int(0x0f)), "severity mask must be in the range [0, 16)");
 
@@ -250,7 +251,8 @@ inline int check_severity_mask_(int severityMask)
     pantheios_util_strfree(m_processIdentity);
 }
 
-int Context::logEntry(
+int
+Context::logEntry(
     int                     severity
 ,   pantheios_char_t const* entry
 ,   size_t                  cchEntry
@@ -374,6 +376,7 @@ int Context::logEntry(
         if (0 != (PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY & m_flags))
         {
 do_sev_as_integer:
+
             slice->ptr = stlsoft::integer_to_string(&numSev[0], STLSOFT_NUM_ELEMENTS(numSev), severity4, &slice->len);
         }
         else
@@ -419,7 +422,6 @@ do_sev_as_integer:
     const size_t cchTotal = std::accumulate(stlsoft::member_selector(&slices[0], &pan_slice_t::len)
                                         ,   stlsoft::member_selector(&slices[0] + rawLogArrayDimension, &pan_slice_t::len)
                                         ,   size_t(0));
-
 #else /* ? compiler */
 
     // The crappy way, for less-than compilers
@@ -429,7 +431,6 @@ do_sev_as_integer:
     {
         cchTotal += slices[i].len;
     }}
-
 #endif /* compiler */
 
 
@@ -440,7 +441,8 @@ do_sev_as_integer:
 #endif /* compiler */
 }
 
-/* virtual */ int Context::rawLogEntry(
+/* virtual */ int
+Context::rawLogEntry(
     int                     severity4
 ,   int                     severityX
 ,   pantheios_char_t const* entry
@@ -458,13 +460,14 @@ do_sev_as_integer:
     slices[0] = pan_slice_t(entry, cchEntry);
 
 #if defined(STLSOFT_COMPILER_IS_DMC)
-    return this->rawLogEntry(severity4, severityX, static_cast<const pan_slice_t (&)[rawLogArrayDimension]>(slices), cchEntry);
+    return this->rawLogEntry(severity4, severityX, static_cast<pan_slice_t const (&)[rawLogArrayDimension]>(slices), cchEntry);
 #else /* ? compiler */
     return this->rawLogEntry(severity4, severityX, slices, cchEntry);
 #endif /* compiler */
 }
 
-/* static */ size_t Context::concatenateSlices(
+/* static */ size_t
+Context::concatenateSlices(
     pantheios_char_t*   dest
 ,   size_t              cchDest
 ,   size_t              numSlices
@@ -475,7 +478,8 @@ do_sev_as_integer:
 
     std::copy(  slices
             ,   slices + numSlices
-            ,   stlsoft::cstring_concatenator(&dest[0], &numWritten));
+            ,   stlsoft::cstring_concatenator(&dest[0], &numWritten)
+            );
 
     PANTHEIOS_CONTRACT_ENFORCE_POSTCONDITION_STATE_INTERNAL(numWritten <= cchDest, "the wrong number of characters were written");
     STLSOFT_SUPPRESS_UNUSED(cchDest);
@@ -490,7 +494,8 @@ Context::getProcessIdentity() const
     return m_processIdentity;
 }
 
-int Context::getBackEndId() const
+int
+Context::getBackEndId() const
 {
     return m_id;
 }

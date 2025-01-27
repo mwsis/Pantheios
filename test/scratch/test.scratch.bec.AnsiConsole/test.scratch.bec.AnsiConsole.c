@@ -1,15 +1,20 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:    test/scratch/test.scratch.bec.AnsiConsole/test.scratch.bec.AnsiConsole.c
  *
- * Purpose: Scratch test program for demonstrating be.AnsiConsole.
+ * Purpose: Scratch test program for demonstrating be.AnsiConsole, including
+ *          ability to supply stock and be-specific flags for be
+ *          initialisation.
  *
  * Created: 21st October 2024
- * Updated: 25th January 2025
+ * Updated: 27th January 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
 
 #include <pantheios/pantheios.h>
+#include <pantheios/backends/bec.AnsiConsole.h>
+
+#include <platformstl/filesystem/path_functions.h>
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -31,21 +36,79 @@ PAN_CHAR_T const PANTHEIOS_FE_PROCESS_IDENTITY[] = PANTHEIOS_LITERAL_STRING("tes
 
 int main(int argc, char* argv[])
 {
-    ((void)&argc);
-    ((void)&argv);
+    pan_be_AnsiConsole_init_t           init;
+    void*                               token;
+    stlsoft_C_string_slice_m_t const    exe_name    =   platformstl_C_get_executable_name_from_path(argv[0]);
 
+    pantheios_be_AnsiConsole_getDefaultAppInit(&init);
 
-    pantheios_logprintf(PANTHEIOS_SEV_EMERGENCY, "emergency");
-    pantheios_logprintf(PANTHEIOS_SEV_ALERT, "alert");
-    pantheios_logprintf(PANTHEIOS_SEV_CRITICAL, "critical");
-    pantheios_logprintf(PANTHEIOS_SEV_ERROR, "error");
-    pantheios_logprintf(PANTHEIOS_SEV_WARNING, "warning");
-    pantheios_logprintf(PANTHEIOS_SEV_NOTICE, "notice");
-    pantheios_logprintf(PANTHEIOS_SEV_INFORMATIONAL, "informational");
-    pantheios_logprintf(PANTHEIOS_SEV_DEBUG, "debug");
+    switch (argc)
+    {
+    case 1:
 
+        break;
+    case 2:
 
-    return EXIT_SUCCESS;
+        if (0 == strcmp("--help", argv[1]))
+        {
+            fprintf(stdout, "USAGE: %.*s [ --help | <flags-number> ]\n"
+            ,   (int)exe_name.len, exe_name.ptr
+            );
+
+            return EXIT_SUCCESS;
+        }
+        else
+        {
+            char*               endptr;
+            unsigned long const v = strtoul(argv[1], &endptr, 0);
+
+            init.flags = (pantheios_uint32_t)v;
+        }
+        break;
+    default:
+
+        fprintf(stderr, "%.*s: too many arguments; use --help for usage\n"
+        ,   (int)exe_name.len, exe_name.ptr
+        );
+
+        return EXIT_FAILURE;
+    }
+
+    int const r = pantheios_be_AnsiConsole_init(PANTHEIOS_FE_PROCESS_IDENTITY, 1, &init, NULL, &token);
+
+    if (0 != r)
+    {
+        fprintf(stderr
+        ,   "%.*s: failed to initialise Pantheios: %s\n"
+        ,   (int)exe_name.len, exe_name.ptr
+        ,   pantheios_getInitCodeString(r)
+        );
+
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_EMERGENCY, "emergency", 9);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_ALERT, "alert", 5);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_CRITICAL, "critical", 8);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_ERROR, "error", 5);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_WARNING, "warning", 7);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_NOTICE, "notice", 6);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_INFORMATIONAL, "informational", 13);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG, "debug", 5);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 1, "debug-1", 7);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 2, "debug-2", 7);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 3, "debug-3", 7);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 4, "debug-4", 7);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 5, "debug-5", 7);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 6, "debug-6", 7);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 7, "debug-7", 7);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 8, "trace", 7);
+
+        pantheios_be_AnsiConsole_uninit(token);
+
+        return EXIT_SUCCESS;
+    }
 }
 
 

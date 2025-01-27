@@ -5,7 +5,7 @@
 # Purpose:  Top-level CMake lists file for Pantheios
 #
 # Created:  29th March 2021
-# Updated:  24th January 2025
+# Updated:  27th January 2025
 #
 # ######################################################################## #
 
@@ -14,6 +14,7 @@
 # CMake
 
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
+cmake_policy(SET CMP0177 NEW)
 
 # require out-of-source builds
 file(TO_CMAKE_PATH "${CMAKE_CURRENT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
