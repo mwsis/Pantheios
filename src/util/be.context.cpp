@@ -4,7 +4,7 @@
  * Purpose: Implementation of pantheios::util::backends::Context.
  *
  * Created: 18th December 2006
- * Updated: 27th January 2025
+ * Updated: 29th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -123,7 +123,8 @@ check_severity_mask_(int severityMask)
     return severityMask;
 }
 
-/* explicit */ Context::Context(
+/* explicit */
+Context::Context(
     pantheios_char_t const* processIdentity
 ,   int                     id
 ,   pan_uint32_t            flags
@@ -145,10 +146,7 @@ check_severity_mask_(int severityMask)
         // 6: "]: "
         // 7: entry
 
-        if ((m_flags & PANTHEIOS_BE_INIT_F_NO_PROCESS_ID) &&
-            (m_flags & PANTHEIOS_BE_INIT_F_NO_THREAD_ID) &&
-            (m_flags & PANTHEIOS_BE_INIT_F_NO_DATETIME) &&
-            (m_flags & PANTHEIOS_BE_INIT_F_NO_SEVERITY))
+        if (!show_prefix())
         {
             // Nothing to do
         }
@@ -263,10 +261,7 @@ Context::logEntry(
     int severity4   =   severity & m_severityMask;
     int severityX   =   (severity & ~m_severityMask) >> 4;
 
-    if (PANTHEIOS_BE_INIT_F_NO_PROCESS_ID == (m_flags & PANTHEIOS_BE_INIT_F_NO_PROCESS_ID) &&
-        PANTHEIOS_BE_INIT_F_NO_THREAD_ID == (m_flags & PANTHEIOS_BE_INIT_F_NO_THREAD_ID) &&
-        PANTHEIOS_BE_INIT_F_NO_DATETIME == (m_flags & PANTHEIOS_BE_INIT_F_NO_DATETIME) &&
-        PANTHEIOS_BE_INIT_F_NO_SEVERITY == (m_flags & PANTHEIOS_BE_INIT_F_NO_SEVERITY))
+    if (!show_prefix())
     {
         return this->rawLogEntry(severity4, severityX, entry, cchEntry);
     }
@@ -487,6 +482,19 @@ Context::concatenateSlices(
     return numWritten;
 }
 
+bool
+Context::show_prefix() const STLSOFT_NOEXCEPT
+{
+    if (PANTHEIOS_BE_INIT_F_NO_PROCESS_ID == (m_flags & PANTHEIOS_BE_INIT_F_NO_PROCESS_ID) &&
+        PANTHEIOS_BE_INIT_F_NO_THREAD_ID == (m_flags & PANTHEIOS_BE_INIT_F_NO_THREAD_ID) &&
+        PANTHEIOS_BE_INIT_F_NO_DATETIME == (m_flags & PANTHEIOS_BE_INIT_F_NO_DATETIME) &&
+        PANTHEIOS_BE_INIT_F_NO_SEVERITY == (m_flags & PANTHEIOS_BE_INIT_F_NO_SEVERITY))
+    {
+        return false;
+    }
+
+    return true;
+}
 
 pantheios_char_t const*
 Context::getProcessIdentity() const

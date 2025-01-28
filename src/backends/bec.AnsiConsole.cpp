@@ -4,7 +4,7 @@
  * Purpose: Implementation of the Pantheios ANSI-Console Stock Back-end API.
  *
  * Created: 20th October 2024
- * Updated: 28th January 2025
+ * Updated: 29th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -127,13 +127,15 @@ namespace {
 
 
     private: // overrides
-        virtual int rawLogEntry(
+        virtual int
+        rawLogEntry(
             int                 severity4
         ,   int                 severityX
-        ,   const pan_slice_t (&ar)[rawLogArrayDimension]
+        ,   pan_slice_t const (&ar)[rawLogArrayDimension]
         ,   size_t              cchTotal
         );
-        virtual int rawLogEntry(
+        virtual int
+        rawLogEntry(
             int                 severity4
         ,   int                 severityX
         ,   PAN_CHAR_T const*   entry
@@ -472,9 +474,9 @@ namespace {
     int
     AnsiConsole_Context::rawLogEntry(
         int                 severity4
-    ,   int                 severityX
-    ,   const pan_slice_t (&ar)[rawLogArrayDimension]
-    ,   size_t              cchTotal
+    ,   int              /* severityX */
+    ,   pan_slice_t const (&ar)[rawLogArrayDimension]
+    ,   size_t           /* cchTotal */
     )
     {
         PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_INTERNAL(severity4 >= 0, "severity must be >= 0");

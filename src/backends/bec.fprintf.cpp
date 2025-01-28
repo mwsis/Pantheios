@@ -4,7 +4,7 @@
  * Purpose: Implementation for the fprintf() back-end
  *
  * Created: 26th June 2005
- * Updated: 28th January 2025
+ * Updated: 29th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -124,13 +124,15 @@ private:
 /// \name Overrides
 /// @{
 private:
-    virtual int rawLogEntry(
+    virtual int
+    rawLogEntry(
         int                 severity4
     ,   int                 severityX
-    ,   const pan_slice_t (&ar)[rawLogArrayDimension]
+    ,   pan_slice_t const (&ar)[rawLogArrayDimension]
     ,   size_t              cchTotal
     );
-    virtual int rawLogEntry(
+    virtual int
+    rawLogEntry(
         int                 severity4
     ,   int                 severityX
     ,   PAN_CHAR_T const*   entry
@@ -167,7 +169,8 @@ namespace
  * API functions
  */
 
-PANTHEIOS_CALL(void) pantheios_be_fprintf_getDefaultAppInit(pan_be_fprintf_init_t* init)
+PANTHEIOS_CALL(void)
+pantheios_be_fprintf_getDefaultAppInit(pan_be_fprintf_init_t* init)
 {
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != init, "initialisation structure pointer may not be null");
 
@@ -235,7 +238,8 @@ static int pantheios_be_fprintf_init_(
     return 0;
 }
 
-PANTHEIOS_CALL(int) pantheios_be_fprintf_init(
+PANTHEIOS_CALL(int)
+pantheios_be_fprintf_init(
     PAN_CHAR_T const*               processIdentity
 ,   int                             backEndId
 ,   pan_be_fprintf_init_t const*    init
@@ -246,7 +250,8 @@ PANTHEIOS_CALL(int) pantheios_be_fprintf_init(
     return pantheios_call_be_X_init<pan_be_fprintf_init_t>(pantheios_be_fprintf_init_, processIdentity, backEndId, init, reserved, ptoken, "be.fprintf");
 }
 
-PANTHEIOS_CALL(void) pantheios_be_fprintf_uninit(void* token)
+PANTHEIOS_CALL(void)
+pantheios_be_fprintf_uninit(void* token)
 {
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != token, "token must be non-null");
 
@@ -272,7 +277,8 @@ static int pantheios_be_fprintf_logEntry_(
     return ctxt->logEntry(severity, entry, cchEntry);
 }
 
-PANTHEIOS_CALL(int) pantheios_be_fprintf_logEntry(
+PANTHEIOS_CALL(int)
+pantheios_be_fprintf_logEntry(
     void*               feToken
 ,   void*               beToken
 ,   int                 severity
@@ -300,10 +306,11 @@ be_fprintf_Context::be_fprintf_Context(
 be_fprintf_Context::~be_fprintf_Context() throw()
 {}
 
-int be_fprintf_Context::rawLogEntry(
+int
+be_fprintf_Context::rawLogEntry(
     int                     severity4
 ,   int                  /* severityX */
-,   const pan_slice_t (&ar)[rawLogArrayDimension]
+,   pan_slice_t const (&ar)[rawLogArrayDimension]
 ,   size_t               /* cchTotal */
 )
 {
@@ -333,7 +340,8 @@ int be_fprintf_Context::rawLogEntry(
                     ,   PAN_BE_GET_SLICE_4_PRINTF(ar[9]));
 }
 
-int be_fprintf_Context::rawLogEntry(
+int
+be_fprintf_Context::rawLogEntry(
     int                     severity4
 ,   int                  /* severityX */
 ,   PAN_CHAR_T const*       entry

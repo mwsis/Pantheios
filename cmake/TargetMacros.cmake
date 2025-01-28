@@ -93,10 +93,7 @@ function(define_simple_console_example_c program_and_main_source_stem)
 			Pantheios.fe.simple
 	)
 
-	target_link_libraries(${program_and_main_source_stem}
-		PRIVATE
-			Pantheios.util
-	)
+	target_link_Pantheios_util(${program_and_main_source_stem})
 
 	target_link_STLSoft(${program_and_main_source_stem})
 
@@ -160,10 +157,7 @@ function(define_simple_console_example_cpp program_and_main_source_stem)
 			Pantheios.fe.simple
 	)
 
-	target_link_libraries(${program_and_main_source_stem}
-		PRIVATE
-			Pantheios.util
-	)
+	target_link_Pantheios_util(${program_and_main_source_stem})
 
 	if(b64_FOUND)
 

@@ -4,7 +4,7 @@
  * Purpose: Implementation for the speech back-end
  *
  * Created: 31st August 2006
- * Updated: 25th January 2025
+ * Updated: 29th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -127,13 +127,14 @@ namespace
     struct be_speech_context
         : public Context
     {
-    public:
-        typedef Context                     parent_class_type;
-        typedef be_speech_context           class_type;
-        typedef std::string                 string_type;
-        typedef stlsoft::ref_ptr<ISpVoice>  voice_type;
+    public: // types
+        typedef Context                                         parent_class_type;
+        typedef be_speech_context                               class_type;
+        typedef std::string                                     string_type;
+        typedef stlsoft::ref_ptr<ISpVoice>                      voice_type;
 
-    public:
+
+    public: // construction
         be_speech_context(
             PAN_CHAR_T const*   processIdentity
         ,   int                 id
@@ -142,29 +143,34 @@ namespace
         );
         ~be_speech_context() throw();
 
-    // Overrides
-    private:
-        virtual int rawLogEntry(
+
+    private: // overrides
+        virtual int
+        rawLogEntry(
             int                 severity4
         ,   int                 severityX
-        ,   const pan_slice_t (&ar)[rawLogArrayDimension]
+        ,   pan_slice_t const (&ar)[rawLogArrayDimension]
         ,   size_t              cchTotal
         );
-        virtual int rawLogEntry(
+        virtual int
+        rawLogEntry(
             int                 severity4
         ,   int                 severityX
         ,   PAN_CHAR_T const*   entry
         ,   size_t              cchEntry
         );
 
-    private:
-        int speak(
+
+    private: // implementation
+        int
+        speak(
             int                 severity
         ,   PAN_CHAR_T const*   entry
         ,   size_t              cchEntry
         );
 
-    private:
+
+    private: // fields
         comstl::com_initializer coinit;
         voice_type              voice;
     };
@@ -176,7 +182,8 @@ namespace
  * API
  */
 
-PANTHEIOS_CALL(void) pantheios_be_speech_getDefaultAppInit(pan_be_speech_init_t* init) /* throw() */
+PANTHEIOS_CALL(void)
+pantheios_be_speech_getDefaultAppInit(pan_be_speech_init_t* init) /* throw() */
 {
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != init, "initialisation structure pointer may not be null");
 
@@ -188,7 +195,8 @@ PANTHEIOS_CALL(void) pantheios_be_speech_getDefaultAppInit(pan_be_speech_init_t*
 }
 
 #ifdef _PANTHEIOS_COMPILER_REQUIRES_EXTERNCPP_DEFINITIONS
-extern "C++" int pantheios_be_speech_init__cpp(
+extern "C++" int
+pantheios_be_speech_init__cpp(
     PAN_CHAR_T const*           processIdentity
 ,   int                         backEndId
 ,   pan_be_speech_init_t const* init
@@ -199,7 +207,8 @@ extern "C++" int pantheios_be_speech_init__cpp(
 
 
 
-PANTHEIOS_CALL(int) pantheios_be_speech_init(
+PANTHEIOS_CALL(int)
+pantheios_be_speech_init(
     PAN_CHAR_T const*           processIdentity
 ,   int                         backEndId
 ,   pan_be_speech_init_t const* init
@@ -303,14 +312,16 @@ int pantheios_be_speech_init__cpp(
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 }
 
-PANTHEIOS_CALL(void) pantheios_be_speech_uninit(void* token)
+PANTHEIOS_CALL(void)
+pantheios_be_speech_uninit(void* token)
 {
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != token, "token must be non-null");
 
     delete static_cast<be_speech_context*>(token);
 }
 
-static int pantheios_be_speech_logEntry_(
+static int
+pantheios_be_speech_logEntry_(
     void*               /* feToken */
 ,   void*               beToken
 ,   int                 severity
@@ -325,7 +336,8 @@ static int pantheios_be_speech_logEntry_(
     return ctxt->logEntry(severity, entry, cchEntry);
 }
 
-PANTHEIOS_CALL(int) pantheios_be_speech_logEntry(
+PANTHEIOS_CALL(int)
+pantheios_be_speech_logEntry(
     void*               feToken
 ,   void*               beToken
 ,   int                 severity
@@ -442,7 +454,13 @@ be_speech_context::~be_speech_context() throw()
     }
 }
 
-int be_speech_context::rawLogEntry(int severity4, int /* severityX */, const pan_slice_t (&ar)[rawLogArrayDimension], size_t cchTotal)
+int
+be_speech_context::rawLogEntry(
+    int                 severity4
+,   int              /* severityX */
+,   pan_slice_t const (&ar)[rawLogArrayDimension]
+,   size_t              cchTotal
+)
 {
     // Define auto_buffer to use Windows process heap
 
@@ -474,7 +492,8 @@ int be_speech_context::rawLogEntry(int severity4, int /* severityX */, const pan
     }
 }
 
-int be_speech_context::rawLogEntry(
+int
+be_speech_context::rawLogEntry(
     int                 severity4
 ,   int                 /* severityX */
 ,   PAN_CHAR_T const*   entry
@@ -484,7 +503,8 @@ int be_speech_context::rawLogEntry(
     return this->speak(severity4, entry, cchEntry);
 }
 
-int be_speech_context::speak(
+int
+be_speech_context::speak(
     int                 severity
 ,   PAN_CHAR_T const*   entry
 ,   size_t              cchEntry
@@ -517,14 +537,16 @@ int be_speech_context::speak(
     {
         switch (severityLevel)
         {
-            case    PANTHEIOS_SEV_EMERGENCY:
-            case    PANTHEIOS_SEV_ALERT:
-            case    PANTHEIOS_SEV_CRITICAL:
-                flags &= SPF_ASYNC;
-                flags |= SPF_PURGEBEFORESPEAK;
-                break;
-            default:
-                break;
+        case    PANTHEIOS_SEV_EMERGENCY:
+        case    PANTHEIOS_SEV_ALERT:
+        case    PANTHEIOS_SEV_CRITICAL:
+
+            flags &= SPF_ASYNC;
+            flags |= SPF_PURGEBEFORESPEAK;
+            break;
+        default:
+
+            break;
         }
     }
 

@@ -4,7 +4,7 @@
  * Purpose: Implementation of the Pantheios Windows-Console Stock Back-end API.
  *
  * Created: 17th July 2006
- * Updated: 28th January 2025
+ * Updated: 29th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -240,9 +240,9 @@ namespace
     /// \name Member Types
     /// @{
     public:
-        typedef Context                                     parent_class_type;
-        typedef WindowsConsole_Context                      class_type;
-        typedef winstl::process_mutex                       mutex_type;
+        typedef Context                                         parent_class_type;
+        typedef WindowsConsole_Context                          class_type;
+        typedef winstl::process_mutex                           mutex_type;
     private:
         typedef std::basic_string<
             PAN_CHAR_T
@@ -250,7 +250,7 @@ namespace
         ,   std::char_traits<PAN_CHAR_T>
         ,   winstl::processheap_allocator<PAN_CHAR_T>
 #endif /* compiler */
-        >                                                   string_type_;
+        >                                                       string_type_;
         typedef std::map<
             const string_type_
         ,   HANDLE
@@ -263,7 +263,7 @@ namespace
                 >
             >
 #endif /* compiler */
-        >                                                   map_type_;
+        >                                                       map_type_;
     /// @}
 
     /// \name Member Constants
@@ -292,13 +292,15 @@ namespace
     /// \name Overrides
     /// @{
     private:
-        virtual int rawLogEntry(
+        virtual int
+        rawLogEntry(
             int                 severity4
         ,   int                 severityX
-        ,   const pan_slice_t (&ar)[rawLogArrayDimension]
+        ,   pan_slice_t const (&ar)[rawLogArrayDimension]
         ,   size_t              cchTotal
         );
-        virtual int rawLogEntry(
+        virtual int
+        rawLogEntry(
             int                 severity4
         ,   int                 severityX
         ,   PAN_CHAR_T const*   entry
@@ -309,13 +311,28 @@ namespace
     /// \name Implementation
     /// @{
     private:
-        int     write_output(HANDLE hStream, PAN_CHAR_T const* entry, int cchEntry);
+        int
+        write_output(
+            HANDLE              hStream
+        ,   PAN_CHAR_T const*   entry
+        ,   int                 cchEntry
+        );
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
-        HANDLE  lookupConsoleMx(HANDLE hBuffer);
+        HANDLE
+        lookupConsoleMx(HANDLE hBuffer);
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
-        void    lookupSeverityCharacteristics(int severity, HANDLE &hOutput, WORD &attributes) const;
-        WORD    lookupConsoleCharacteristics();
-        void    write_reset(HANDLE hOutput);
+        void
+        lookupSeverityCharacteristics(
+            int     severity
+        ,   HANDLE& hOutput
+        ,   WORD&   attributes
+        ) const;
+        WORD
+        lookupConsoleCharacteristics();
+        void
+        write_reset(
+            HANDLE hOutput
+        );
     /// @}
 
     /// \name Members
@@ -631,7 +648,7 @@ int
 WindowsConsole_Context::rawLogEntry(
     int                 severity4
 ,   int                 severityX
-,   const pan_slice_t (&ar)[rawLogArrayDimension]
+,   pan_slice_t const (&ar)[rawLogArrayDimension]
 ,   size_t              cchTotal
 )
 {
@@ -667,7 +684,8 @@ WindowsConsole_Context::rawLogEntry(
     }
 }
 
-int WindowsConsole_Context::rawLogEntry(
+int
+WindowsConsole_Context::rawLogEntry(
     int                 severity4
 ,   int              /* severityX */
 ,   PAN_CHAR_T const*   entry
