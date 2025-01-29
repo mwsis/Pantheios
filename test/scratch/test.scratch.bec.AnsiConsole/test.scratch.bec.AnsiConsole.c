@@ -6,7 +6,7 @@
  *          initialisation.
  *
  * Created: 21st October 2024
- * Updated: 27th January 2025
+ * Updated: 30th January 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -102,8 +102,8 @@ int main(int argc, char* argv[])
         pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 4, "debug-4", 7);
         pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 5, "debug-5", 7);
         pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 6, "debug-6", 7);
-        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 7, "debug-7", 7);
-        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 8, "trace", 7);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 7, "trace", 5);
+        pantheios_be_AnsiConsole_logEntry(NULL, token, PANTHEIOS_SEV_DEBUG + 8, "benchmark", 9);
 
         pantheios_be_AnsiConsole_uninit(token);
 

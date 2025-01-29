@@ -4,7 +4,7 @@
  * Purpose: Implementation of the Pantheios ANSI-Console Stock Back-end API.
  *
  * Created: 20th October 2024
- * Updated: 29th January 2025
+ * Updated: 30th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -433,22 +433,22 @@ namespace {
             {
                 switch (severity4 & 0xf)
                 {
-                case  0: pre = "\033[1;34;41;5m"; break;
-                case  1: pre = "\033[1;93;41;5m"; break;
-                case  2: pre = "\033[1;93;41m"; break;
-                case  3: pre = "\033[1;33;41m"; break;
-                case  4: pre = "\033[1;93;40m"; break;
-                case  5: pre = "\033[1;92;40m"; break;
-                case  6: pre = "\033[1;32;40m"; break;
-                case  7: pre = "\033[1;94;40m"; break;
-                case  8: pre = "\033[1;94;40m"; break;
-                case  9: pre = "\033[0;94;40m"; break;
-                case 10: pre = "\033[0;94;40m"; break;
-                case 11: pre = "\033[0;94;40m"; break;
-                case 12: pre = "\033[0;94;40m"; break;
-                case 13: pre = "\033[0;94;40m"; break;
-                case 14: pre = "\033[0;94;40m"; break;
-                case 15: pre = "\033[1;36;40m"; break;
+                case  0: pre = "\033[1;93;41;5m"; break;    // emergency / violation
+                case  1: pre = "\033[1;96;41;5m"; break;    // alert
+                case  2: pre = "\033[1;97;41m"; break;      // critical
+                case  3: pre = "\033[1;31;43m"; break;      // failure / error
+                case  4: pre = "\033[1;34;43m"; break;      // warning
+                case  5: pre = "\033[1;97;100m"; break;     // notice
+                case  6: pre = "\033[1;37;100m"; break;     // info(rmational)
+                case  7: pre = "\033[1;37;44m"; break;      // debug
+                case  8: pre = "\033[1;37;44m"; break;      // debug-1
+                case  9: pre = "\033[0;37;44m"; break;      // debug-2
+                case 10: pre = "\033[0;37;44m"; break;      // debug-3
+                case 11: pre = "\033[0;37;44m"; break;      // debug-4
+                case 12: pre = "\033[0;37;44m"; break;      // debug-5
+                case 13: pre = "\033[0;37;44m"; break;      // debug-6
+                case 14: pre = "\033[0;37;44m"; break;      // trace
+                case 15: pre = "\033[1;36;40m"; break;      // benchmark
                 }
 
                 post = "\033[0m";
