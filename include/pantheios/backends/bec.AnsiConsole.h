@@ -1,15 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:    pantheios/backends/bec.COMErrorObject.h
+ * File:    pantheios/backends/bec.AnsiConsole.h
  *
- * Purpose: Declaration of the Pantheios COMErrorObject Stock Back-end API.
+ * Purpose: Declaration of the Pantheios AnsiConsole Stock Back-end API.
  *
- * Created: 21st June 2005
+ * Created: 20th October 2024
  * Updated: 25th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
- * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
+ * Copyright (c) 2024-2025, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,13 +39,13 @@
  * ////////////////////////////////////////////////////////////////////// */
 
 
-/** \file pantheios/backends/bec.COMErrorObject.h
+/** \file pantheios/backends/bec.AnsiConsole.h
  *
- * [C, C++] Pantheios COM Error Object Back-end Common API
+ * [C, C++] Pantheios ANSI Console Back-end Common API
  */
 
-#ifndef PANTHEIOS_INCL_PANTHEIOS_BACKENDS_H_COMERROROBJECT
-#define PANTHEIOS_INCL_PANTHEIOS_BACKENDS_H_COMERROROBJECT
+#ifndef PANTHEIOS_INCL_PANTHEIOS_BACKENDS_H_ANSICONSOLE
+#define PANTHEIOS_INCL_PANTHEIOS_BACKENDS_H_ANSICONSOLE
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -54,10 +53,10 @@
  */
 
 #ifndef PANTHEIOS_DOCUMENTATION_SKIP_SECTION
-# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_COMERROROBJECT_MAJOR    3
-# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_COMERROROBJECT_MINOR    1
-# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_COMERROROBJECT_REVISION 3
-# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_COMERROROBJECT_EDIT     27
+# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_ANSICONSOLE_MAJOR       1
+# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_ANSICONSOLE_MINOR       0
+# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_ANSICONSOLE_REVISION    2
+# define PANTHEIOS_VER_PANTHEIOS_BACKENDS_H_BEC_ANSICONSOLE_EDIT        2
 #endif /* !PANTHEIOS_DOCUMENTATION_SKIP_SECTION */
 
 
@@ -77,7 +76,7 @@
  * documentation
  */
 
-/** \defgroup group__backend__stock_backends__COMErrorObject Pantheios COM Error Object Stock Back-end
+/** \defgroup group__backend__stock_backends__AnsiConsole Pantheios ANSI Console Stock Back-end
  * \ingroup group__backend__stock_backends
  *  Back-end library that sets the calling threads's COM error object.
  */
@@ -87,21 +86,48 @@
  * constants
  */
 
-/** \defgroup group__backend__stock_backends__COMErrorObject__flags Pantheios COM Error Object Stock Back-end Flags
- * \ingroup group__backend__stock_backends__COMErrorObject
- *  Flags for the \ref group__backend__stock_backends__COMErrorObject
+/** \defgroup group__backend__stock_backends__AnsiConsole__flags Pantheios ANSI Console Stock Back-end Flags
+ * \ingroup group__backend__stock_backends__AnsiConsole
+ *  Flags for the \ref group__backend__stock_backends__AnsiConsole
  */
 
-/** \def PANTHEIOS_BE_COMERROROBJECT_F_DONT_OVERWRITE_EXISTING
- *  Prevents the \ref group__backend__stock_backends__COMErrorObject
- *   from writing to the COM Error Object if there is an existing error
- *   object set (for the calling thread). This is helpful when several
- *   levels of code are handling and reporting errors, so as not to lose.
- *   the innermost (and most exact) error report.
- * \ingroup group__backend__stock_backends__COMErrorObject__flags
+/** \def PANTHEIOS_BE_ANSICONSOLE_F_NO_COLOURS
+ *  Causes the \ref group__backend__stock_backends__AnsiConsole to
+ *   emit log statements without colouring based on severity.
+ * \ingroup group__backend__stock_backends__AnsiConsole__flags
  */
 
-#define PANTHEIOS_BE_COMERROROBJECT_F_DONT_OVERWRITE_EXISTING       (0x00100000)
+#define PANTHEIOS_BE_ANSICONSOLE_F_NO_COLOURS                       (0x10000000)
+#ifndef PANTHEIOS_DOCUMENTATION_SKIP_SECTION
+# define PANTHEIOS_BE_ANSICONSOLE_F_NO_COLORS                       PANTHEIOS_BE_ANSICONSOLE_F_NO_COLOURS
+#endif /* !PANTHEIOS_DOCUMENTATION_SKIP_SECTION */
+
+/** \def PANTHEIOS_BE_ANSICONSOLE_F_FORCE_ANSI_ESCAPE_SEQUENCES
+ *  Causes the \ref group__backend__stock_backends__AnsiConsole
+ *   to write ANSI escape sequences regardless of the console/terminal mode,
+ *   i.e. even if the output is being redirected.
+ * \ingroup group__backend__stock_backends__AnsiConsole__flags
+ */
+
+#define PANTHEIOS_BE_ANSICONSOLE_F_FORCE_ANSI_ESCAPE_SEQUENCES      (0x20000000)
+
+/** \def PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_WHOLE_PREFIX
+ *  Causes the \ref group__backend__stock_backends__AnsiConsole to
+ *   colour the whole prefix (date, time, etc.) rather than just the
+ *   severity.
+ * \ingroup group__backend__stock_backends__AnsiConsole__flags
+ */
+
+#define PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_WHOLE_PREFIX              (0x00010000)
+
+/** \def PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_MESSAGE
+ *  Causes the \ref group__backend__stock_backends__AnsiConsole to
+ *   colour the message, in addition to whatever parts of the prefix are
+ *   coloured.
+ * \ingroup group__backend__stock_backends__AnsiConsole__flags
+ */
+
+#define PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_MESSAGE                   (0x00020000)
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -109,28 +135,28 @@
  */
 
 /** Structure used for specifying initialisation information to the
- *    be.COMErrorObject library.
- * \ingroup group__backend__stock_backends__COMErrorObject
+ *    be.AnsiConsole library.
+ * \ingroup group__backend__stock_backends__AnsiConsole
  */
-struct pan_be_COMErrorObject_init_t
+struct pan_be_AnsiConsole_init_t
 {
     pantheios_uint32_t      version;    /*!< Must be initialised to the value of PANTHEIOS_VER */
-    pantheios_uint32_t      flags;      /*!< \ref group__backend__stock_backends__COMErrorObject__flags "Flags" that control the information displayed. */
+    pantheios_uint32_t      flags;      /*!< \ref group__backend__stock_backends__AnsiConsole__flags "Flags" that control the information displayed. */
 
 #ifdef __cplusplus
 public: /* Construction */
 # ifndef PANTHEIOS_BE_INIT_NO_CPP_STRUCT_INIT
-    pan_be_COMErrorObject_init_t();
+    pan_be_AnsiConsole_init_t();
 # endif /* !PANTHEIOS_BE_INIT_NO_CPP_STRUCT_INIT */
 #endif /* __cplusplus */
 };
 #ifndef __cplusplus
-typedef struct pan_be_COMErrorObject_init_t pan_be_COMErrorObject_init_t;
+typedef struct pan_be_AnsiConsole_init_t                    pan_be_AnsiConsole_init_t;
 #endif /* !__cplusplus */
 
 
 /* /////////////////////////////////////////////////////////////////////////
- * application-defined functions
+ * Application-defined functions
  */
 
 /** Callback function defined by the application, invoked when the
@@ -140,9 +166,9 @@ typedef struct pan_be_COMErrorObject_init_t pan_be_COMErrorObject_init_t;
  *   but will not be invoked.
  */
 PANTHEIOS_CALL(void)
-pantheios_be_COMErrorObject_getAppInit(
-    int                             backEndId
-,   pan_be_COMErrorObject_init_t*   init
+pantheios_be_AnsiConsole_getAppInit(
+    int                         backEndId
+,   pan_be_AnsiConsole_init_t*  init
 ) /* throw() */;
 
 
@@ -153,38 +179,36 @@ pantheios_be_COMErrorObject_getAppInit(
 /** Fills out a copy of the initialisation structure with default
  *    values (representative of the default behaviour of the library),
  *    ready to be customised and passed to the API initialiser function
- *    pantheios_be_COMErrorObject_init().
+ *    pantheios_be_AnsiConsole_init().
  */
 PANTHEIOS_CALL(void)
-pantheios_be_COMErrorObject_getDefaultAppInit(
-    pan_be_COMErrorObject_init_t* init
+pantheios_be_AnsiConsole_getDefaultAppInit(
+    pan_be_AnsiConsole_init_t* init
 ) /* throw() */;
 
-/** Implements the functionality for pantheios_be_init() over the COM Error Object API.
- * \ingroup group__backend__stock_backends__COMErrorObject
+/** Implements the functionality for pantheios_be_init() over the ANSI Console API.
+ * \ingroup group__backend__stock_backends__AnsiConsole
  */
 PANTHEIOS_CALL(int)
-pantheios_be_COMErrorObject_init(
+pantheios_be_AnsiConsole_init(
     PAN_CHAR_T const*                   processIdentity
 ,   int                                 id
-,   pan_be_COMErrorObject_init_t const* init
+,   pan_be_AnsiConsole_init_t const*    init
 ,   void*                               reserved
 ,   void**                              ptoken
 );
 
-/** Implements the functionality for pantheios_be_uninit() over the COM Error Object API.
- * \ingroup group__backend__stock_backends__COMErrorObject
+/** Implements the functionality for pantheios_be_uninit() over the ANSI Console API.
+ * \ingroup group__backend__stock_backends__AnsiConsole
  */
 PANTHEIOS_CALL(void)
-pantheios_be_COMErrorObject_uninit(
-    void* token
-);
+pantheios_be_AnsiConsole_uninit(void* token);
 
-/** Implements the functionality for pantheios_be_logEntry() over the COM Error Object API.
- * \ingroup group__backend__stock_backends__COMErrorObject
+/** Implements the functionality for pantheios_be_logEntry() over the ANSI Console API.
+ * \ingroup group__backend__stock_backends__AnsiConsole
  */
 PANTHEIOS_CALL(int)
-pantheios_be_COMErrorObject_logEntry(
+pantheios_be_AnsiConsole_logEntry(
     void*               feToken
 ,   void*               beToken
 ,   int                 severity
@@ -192,13 +216,13 @@ pantheios_be_COMErrorObject_logEntry(
 ,   size_t              cchEntry
 );
 
-/** Parses the be.COMErrorObject back-end flags
+/** Parses the be.AnsiConsole back-end flags
  *
  * \ingroup group__backend
  *
  * Processes an argument list in the same way as
  * pantheios_be_parseStockArgs(), filling out the
- * pan_be_COMErrorObject_init_t in accordance with the arguments
+ * pan_be_AnsiConsole_init_t in accordance with the arguments
  * found.
  *
  * Recognises the following standard argument names:
@@ -214,14 +238,16 @@ pantheios_be_COMErrorObject_logEntry(
  * - "lowResolution"            (Boolean)
  *
  * Recognises the following back-end specific argument names:
- * - "overwriteExisting"        (Boolean)
+ * - "noColours" / "noColors"   (Boolean)
+ * - "forceAnsiEscapeSequences" (Boolean)
+ * - "colourWholePrefix"        (Boolean)
+ * - "colourMessage"            (Boolean)
  */
-
 PANTHEIOS_CALL(int)
-pantheios_be_COMErrorObject_parseArgs(
-    size_t                          numArgs
-,   pantheios_slice_t               args[]
-,   pan_be_COMErrorObject_init_t*   init
+pantheios_be_AnsiConsole_parseArgs(
+    size_t                      numArgs
+,   pantheios_slice_t           args[]
+,   pan_be_AnsiConsole_init_t*  init
 );
 
 
@@ -234,9 +260,9 @@ pantheios_be_COMErrorObject_parseArgs(
 # ifndef PANTHEIOS_BE_INIT_NO_CPP_STRUCT_INIT
 
 inline
-pan_be_COMErrorObject_init_t::pan_be_COMErrorObject_init_t()
+pan_be_AnsiConsole_init_t::pan_be_AnsiConsole_init_t()
 {
-    pantheios_be_COMErrorObject_getDefaultAppInit(this);
+    pantheios_be_AnsiConsole_getDefaultAppInit(this);
 }
 # endif /* !PANTHEIOS_BE_INIT_NO_CPP_STRUCT_INIT */
 #endif /* __cplusplus */
@@ -250,7 +276,7 @@ pan_be_COMErrorObject_init_t::pan_be_COMErrorObject_init_t()
 # pragma once
 #endif /* STLSOFT_PPF_pragma_once_SUPPORT */
 
-#endif /* PANTHEIOS_INCL_PANTHEIOS_BACKENDS_H_COMERROROBJECT */
+#endif /* PANTHEIOS_INCL_PANTHEIOS_BACKENDS_H_ANSICONSOLE */
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

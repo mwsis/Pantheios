@@ -4,11 +4,11 @@
  * Purpose: Implementation of the Pantheios Windows-Console Stock Back-end API.
  *
  * Created: 17th July 2006
- * Updated: 20th October 2024
+ * Updated: 25th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -516,28 +516,56 @@ pantheios_be_WindowsConsole_parseArgs(
 
     // 1. Parse the stock arguments
     int res = pantheios_be_parseStockArgs(numArgs, args, &init->flags);
+    int r;
 
     if (res >= 0)
     {
         // 2. Parse the custom argument: "showColours"
-        res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("showColours"), true, PANTHEIOS_BE_WINDOWSCONSOLE_F_NO_COLOURS, &init->flags);
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("showColours"), true, PANTHEIOS_BE_WINDOWSCONSOLE_F_NO_COLOURS, &init->flags);
 
-        if (0 == res)
+        if (0 == r)
         {
-            res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("showColors"), true, PANTHEIOS_BE_WINDOWSCONSOLE_F_NO_COLOURS, &init->flags);
+            r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("showColors"), true, PANTHEIOS_BE_WINDOWSCONSOLE_F_NO_COLOURS, &init->flags);
+        }
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
         }
     }
 
     if (res >= 0)
     {
         // Parse the custom argument: "clearAfterEachStatement"
-        res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("clearAfterEachStatement"), false, PANTHEIOS_BE_WINDOWSCONSOLE_F_CLEAR_AFTER_EACH_STATEMENT, &init->flags);
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("clearAfterEachStatement"), false, PANTHEIOS_BE_WINDOWSCONSOLE_F_CLEAR_AFTER_EACH_STATEMENT, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
+        }
     }
 
     if (res >= 0)
     {
         // Parse the custom argument: "recognise16Severities"
-        res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("recognise16Severities"), false, PANTHEIOS_BE_WINDOWSCONSOLE_F_RECOGNISE_16_SEVERITIES, &init->flags);
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("recognise16Severities"), false, PANTHEIOS_BE_WINDOWSCONSOLE_F_RECOGNISE_16_SEVERITIES, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
+        }
     }
 
     return res;

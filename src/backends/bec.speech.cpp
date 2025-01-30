@@ -4,11 +4,11 @@
  * Purpose: Implementation for the speech back-end
  *
  * Created: 31st August 2006
- * Updated: 15th July 2024
+ * Updated: 25th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -350,29 +350,66 @@ pantheios_be_speech_parseArgs(
 
     // 1. Parse the stock arguments
     int res = pantheios_be_parseStockArgs(numArgs, args, &init->flags);
+    int r;
 
     if (res >= 0)
     {
         // 2.a Parse the custom argument: "synchronous"
-        res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("synchronous"), true, PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS, &init->flags);
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("synchronous"), false, PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
+        }
     }
 
     if (res >= 0)
     {
         // 2.b Parse the custom argument: "purgeBeforeSpeak"
-        res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("purgeBeforeSpeak"), true, PANTHEIOS_BE_SPEECH_F_PURGE_BEFORE_SPEAK, &init->flags);
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("purgeBeforeSpeak"), false, PANTHEIOS_BE_SPEECH_F_PURGE_BEFORE_SPEAK, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
+        }
     }
 
     if (res >= 0)
     {
         // 2.c Parse the custom argument: "speakPunctuation"
-        res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("speakPunctuation"), true, PANTHEIOS_BE_SPEECH_F_SPEAK_PUNCTUATION, &init->flags);
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("speakPunctuation"), false, PANTHEIOS_BE_SPEECH_F_SPEAK_PUNCTUATION, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
+        }
     }
 
     if (res >= 0)
     {
         // 2.d Parse the custom argument: "synchronousOnCritical"
-        res = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("synchronousOnCritical"), true, PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS_ON_CRITICAL, &init->flags);
+        r = pantheios_be_parseBooleanArg(numArgs, args, PANTHEIOS_LITERAL_STRING("synchronousOnCritical"), false, PANTHEIOS_BE_SPEECH_F_SYNCHRONOUS_ON_CRITICAL, &init->flags);
+
+        if (r < 0)
+        {
+            res = r;
+        }
+        else
+        {
+            res += r;
+        }
     }
 
     return res;

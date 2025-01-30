@@ -1,10 +1,10 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:    test.unit.bec.syslog/entry.cpp
+ * File:    test.unit.bec.AnsiConsole/entry.cpp
  *
- * Purpose: Unit-test for bec.syslog.
+ * Purpose: Unit-test for bec.AnsiConsole.
  *
  * Created: 24th January 2025
- * Updated: 25th January 2025
+ * Updated: 24th January 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -13,7 +13,7 @@
  * test component header file include(s)
  */
 
-#include <pantheios/backends/bec.syslog.h>
+#include <pantheios/backends/bec.AnsiConsole.h>
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -34,15 +34,15 @@
  * forward declarations
  */
 
-static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_true();
-static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_false();
+static void TEST_pantheios_be_parseStockArgs_WITH_ALL_STOCK_true();
+static void TEST_pantheios_be_parseStockArgs_WITH_ALL_STOCK_false();
 
 
 /* /////////////////////////////////////////////////////////////////////////
  * globals
  */
 
-PANTHEIOS_EXTERN PAN_CHAR_T const PANTHEIOS_FE_PROCESS_IDENTITY[] = PANTHEIOS_LITERAL_STRING("test.unit.bec.syslog");
+PANTHEIOS_EXTERN PAN_CHAR_T const PANTHEIOS_FE_PROCESS_IDENTITY[] = PANTHEIOS_LITERAL_STRING("test.unit.bec.AnsiConsole");
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -53,10 +53,10 @@ int main(int argc, char* argv[])
 
     XTESTS_COMMANDLINE_PARSEVERBOSITY(argc, argv, &verbosity);
 
-    if (XTESTS_START_RUNNER("test.unit.bec.syslog", verbosity))
+    if (XTESTS_START_RUNNER("test.unit.bec.AnsiConsole", verbosity))
     {
-        XTESTS_RUN_CASE(TEST_pantheios_be_syslog_WITH_ALL_STOCK_true);
-        XTESTS_RUN_CASE(TEST_pantheios_be_syslog_WITH_ALL_STOCK_false);
+        XTESTS_RUN_CASE(TEST_pantheios_be_parseStockArgs_WITH_ALL_STOCK_true);
+        XTESTS_RUN_CASE(TEST_pantheios_be_parseStockArgs_WITH_ALL_STOCK_false);
 
         XTESTS_PRINT_RESULTS();
 
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 
 /* ////////////////////////////////////////////////////////////////////// */
 
-static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_true()
+static void TEST_pantheios_be_parseStockArgs_WITH_ALL_STOCK_true()
 {
     pantheios_slice_t args[] =
     {
@@ -87,13 +87,13 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_true()
     ,   { 18, "lowResolution=true" }
     ,   { 20, "numericSeverity=true" }
     /* custom */
-    ,   { 14, "useStderr=true" }
-    ,   { 15, "useConsole=true" }
-    ,   { 12, "showPid=true" }
-    ,   { 23, "connectImmediately=true" }
+    ,   { 14, "noColours=true" }
+    ,   { 29, "forceAnsiEscapeSequences=true" }
+    ,   { 22, "colourWholePrefix=true" }
+    ,   { 18, "colourMessage=true" }
     };
 
-    pan_be_syslog_init_t   init;
+    pan_be_AnsiConsole_init_t   init;
 
     init.flags                      =   0
                                     /* stock */
@@ -110,15 +110,13 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_true()
                                     // |   PANTHEIOS_BE_INIT_F_LOW_RESOLUTION
                                     // |   PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY
                                     /* custom */
-                                    // |   PANTHEIOS_BE_SYSLOG_F_PERROR
-                                    // |   PANTHEIOS_BE_SYSLOG_F_CONS
-                                    // |   PANTHEIOS_BE_SYSLOG_F_PID
-                                    // |   PANTHEIOS_BE_SYSLOG_F_NDELAY
+                                    |   PANTHEIOS_BE_ANSICONSOLE_F_NO_COLOURS
+                                    // |   PANTHEIOS_BE_ANSICONSOLE_F_FORCE_ANSI_ESCAPE_SEQUENCES
+                                    // |   PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_WHOLE_PREFIX
+                                    // |   PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_MESSAGE
                                     ;
 
-
-
-    int const r = pantheios_be_syslog_parseArgs(STLSOFT_NUM_ELEMENTS(args), args, &init);
+    int const r = pantheios_be_AnsiConsole_parseArgs(STLSOFT_NUM_ELEMENTS(args), args, &init);
 
     TEST_INTEGER_EQUAL(16, r);
 
@@ -137,16 +135,16 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_true()
                                     |   PANTHEIOS_BE_INIT_F_LOW_RESOLUTION
                                     |   PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY
                                     /* custom */
-                                    |   PANTHEIOS_BE_SYSLOG_F_PERROR
-                                    |   PANTHEIOS_BE_SYSLOG_F_CONS
-                                    |   PANTHEIOS_BE_SYSLOG_F_PID
-                                    |   PANTHEIOS_BE_SYSLOG_F_NDELAY
+                                    // |   PANTHEIOS_BE_ANSICONSOLE_F_NO_COLOURS
+                                    |   PANTHEIOS_BE_ANSICONSOLE_F_FORCE_ANSI_ESCAPE_SEQUENCES
+                                    |   PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_WHOLE_PREFIX
+                                    |   PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_MESSAGE
                                     ;
 
     TEST_INTEGER_EQUAL(expected, init.flags);
 }
 
-static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_false()
+static void TEST_pantheios_be_parseStockArgs_WITH_ALL_STOCK_false()
 {
     pantheios_slice_t args[] =
     {
@@ -165,13 +163,13 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_false()
     ,   { 19, "lowResolution=false" }
     ,   { 21, "numericSeverity=false" }
     /* custom */
-    ,   { 15, "useStderr=false" }
-    ,   { 16, "useConsole=false" }
-    ,   { 13, "showPid=false" }
-    ,   { 24, "connectImmediately=false" }
+    ,   { 15, "noColours=false" }
+    ,   { 30, "forceAnsiEscapeSequences=false" }
+    ,   { 23, "colourWholePrefix=false" }
+    ,   { 19, "colourMessage=false" }
     };
 
-    pan_be_syslog_init_t   init;
+    pan_be_AnsiConsole_init_t   init;
 
     init.flags                      =   0
                                     /* stock */
@@ -188,13 +186,13 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_false()
                                     |   PANTHEIOS_BE_INIT_F_LOW_RESOLUTION
                                     |   PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY
                                     /* custom */
-                                    |   PANTHEIOS_BE_SYSLOG_F_PERROR
-                                    |   PANTHEIOS_BE_SYSLOG_F_CONS
-                                    |   PANTHEIOS_BE_SYSLOG_F_PID
-                                    |   PANTHEIOS_BE_SYSLOG_F_NDELAY
+                                    // |   PANTHEIOS_BE_ANSICONSOLE_F_NO_COLOURS
+                                    |   PANTHEIOS_BE_ANSICONSOLE_F_FORCE_ANSI_ESCAPE_SEQUENCES
+                                    |   PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_WHOLE_PREFIX
+                                    |   PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_MESSAGE
                                     ;
 
-    int const r = pantheios_be_syslog_parseArgs(STLSOFT_NUM_ELEMENTS(args), args, &init);
+    int const r = pantheios_be_AnsiConsole_parseArgs(STLSOFT_NUM_ELEMENTS(args), args, &init);
 
     TEST_INTEGER_EQUAL(16, r);
 
@@ -213,10 +211,10 @@ static void TEST_pantheios_be_syslog_WITH_ALL_STOCK_false()
                                     // |   PANTHEIOS_BE_INIT_F_LOW_RESOLUTION
                                     // |   PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY
                                     /* custom */
-                                    // |   PANTHEIOS_BE_SYSLOG_F_PERROR
-                                    // |   PANTHEIOS_BE_SYSLOG_F_CONS
-                                    // |   PANTHEIOS_BE_SYSLOG_F_PID
-                                    // |   PANTHEIOS_BE_SYSLOG_F_NDELAY
+                                    |   PANTHEIOS_BE_ANSICONSOLE_F_NO_COLOURS
+                                    // |   PANTHEIOS_BE_ANSICONSOLE_F_FORCE_ANSI_ESCAPE_SEQUENCES
+                                    // |   PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_WHOLE_PREFIX
+                                    // |   PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_MESSAGE
                                     ;
 
     TEST_INTEGER_EQUAL(expected, init.flags);

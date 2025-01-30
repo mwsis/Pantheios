@@ -76,11 +76,13 @@
  */
 
 #ifdef PANTHEIOS_USE_WIDE_STRINGS
+
 # define pan_toupper_                                       towupper
-typedef stlsoft::wstring_view           string_view_t;
+typedef stlsoft::wstring_view                               string_view_t;
 #else /* ? PANTHEIOS_USE_WIDE_STRINGS */
+
 # define pan_toupper_                                       toupper
-typedef stlsoft::string_view            string_view_t;
+typedef stlsoft::string_view                                string_view_t;
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
 
 
@@ -89,6 +91,8 @@ typedef stlsoft::string_view            string_view_t;
  */
 
 #ifndef PANTHEIOS_NO_NAMESPACE
+using pantheios::pan_char_t;
+using pantheios::pan_uint32_t;
 using pantheios::util::pantheios_onBailOut3;
 using pantheios::util::pantheios_onBailOut4;
 #endif /* !PANTHEIOS_NO_NAMESPACE */
@@ -423,6 +427,31 @@ pantheios_be_parseStockArgs_(
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API((NULL != args || 0 == numArgs), "arguments pointer may only be null if the number of arguments is 0");
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_PARAMS_API(NULL != flags, "flags pointer may not be null");
 
+    struct option_mapping_t
+    {
+        pan_char_t const*   name;
+        pan_uint32_t        flag;
+        bool                is_suppressed;
+    };
+
+    static const option_mapping_t s_mappings[] =
+    {
+        {   PANTHEIOS_LITERAL_STRING("highResolution"),     PANTHEIOS_BE_INIT_F_HIGH_RESOLUTION,    false   },
+        {   PANTHEIOS_LITERAL_STRING("lowResolution"),      PANTHEIOS_BE_INIT_F_LOW_RESOLUTION,     false   },
+        {   PANTHEIOS_LITERAL_STRING("numericSeverity"),    PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY,   false   },
+        {   PANTHEIOS_LITERAL_STRING("showDate"),           PANTHEIOS_BE_INIT_F_HIDE_DATE,          true    },
+        {   PANTHEIOS_LITERAL_STRING("showDateTime"),       PANTHEIOS_BE_INIT_F_NO_DATETIME,        true    },
+        {   PANTHEIOS_LITERAL_STRING("showDetailsAtStart"), PANTHEIOS_BE_INIT_F_DETAILS_AT_START,   false   },
+        {   PANTHEIOS_LITERAL_STRING("showProcessId"),      PANTHEIOS_BE_INIT_F_NO_PROCESS_ID,      true    },
+        {   PANTHEIOS_LITERAL_STRING("showSeverity"),       PANTHEIOS_BE_INIT_F_NO_SEVERITY,        true    },
+        {   PANTHEIOS_LITERAL_STRING("showThreadId"),       PANTHEIOS_BE_INIT_F_NO_THREAD_ID,       true    },
+        {   PANTHEIOS_LITERAL_STRING("showTime"),           PANTHEIOS_BE_INIT_F_HIDE_TIME,          true    },
+        {   PANTHEIOS_LITERAL_STRING("useSystemTime"),      PANTHEIOS_BE_INIT_F_USE_SYSTEM_TIME,    false   },
+        {   PANTHEIOS_LITERAL_STRING("useUnixFormat"),      PANTHEIOS_BE_INIT_F_USE_UNIX_FORMAT,    false   },
+        {   PANTHEIOS_LITERAL_STRING("useUNIXFormat"),      PANTHEIOS_BE_INIT_F_USE_UNIX_FORMAT,    false   },
+    };
+
+
     int numMatched = 0;
 
     { for (size_t i = 0; i != numArgs; ++i)
@@ -434,8 +463,6 @@ pantheios_be_parseStockArgs_(
             string_view_t   arg(slice.ptr, slice.len);
             string_view_t   name;
             string_view_t   value;
-            bool            flagSuppresses;
-            int             flagValue;
 
             if (!stlsoft::split(arg, PANTHEIOS_LITERAL_CHAR('='), name, value))
             {
@@ -444,80 +471,35 @@ pantheios_be_parseStockArgs_(
 
             if (!name.empty())
             {
-                // PANTHEIOS_BE_INIT_F_NO_PROCESS_ID
-                if (name == PANTHEIOS_LITERAL_STRING("showProcessId"))
+                bool    flagSuppresses  =   false;
+                int     flagValue       =   0;
+                bool    found           =   false;
+
+                { for (size_t j = 0; STLSOFT_NUM_ELEMENTS(s_mappings) != j; ++j)
                 {
-                    flagSuppresses  =   true;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_NO_PROCESS_ID;
-                }
-                // PANTHEIOS_BE_INIT_F_NO_THREAD_ID
-                else if (name == PANTHEIOS_LITERAL_STRING("showThreadId"))
-                {
-                    flagSuppresses  =   true;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_NO_THREAD_ID;
-                }
-                // PANTHEIOS_BE_INIT_F_NO_DATETIME
-                else if (name == PANTHEIOS_LITERAL_STRING("showDateTime"))
-                {
-                    flagSuppresses  =   true;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_NO_DATETIME;
-                }
-                // PANTHEIOS_BE_INIT_F_NO_SEVERITY
-                else if (name == PANTHEIOS_LITERAL_STRING("showSeverity"))
-                {
-                    flagSuppresses  =   true;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_NO_SEVERITY;
-                }
-                // PANTHEIOS_BE_INIT_F_USE_SYSTEM_TIME
-                else if (name == PANTHEIOS_LITERAL_STRING("useSystemTime"))
-                {
-                    flagSuppresses  =   false;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_USE_SYSTEM_TIME;
-                }
-                // PANTHEIOS_BE_INIT_F_DETAILS_AT_START
-                else if (name == PANTHEIOS_LITERAL_STRING("showDetailsAtStart"))
-                {
-                    flagSuppresses  =   false;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_DETAILS_AT_START;
-                }
-                // PANTHEIOS_BE_INIT_F_USE_UNIX_FORMAT
-                else if (name == PANTHEIOS_LITERAL_STRING("useUnixFormat") ||
-                        name == PANTHEIOS_LITERAL_STRING("useUNIXFormat"))
-                {
-                    flagSuppresses  =   false;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_USE_UNIX_FORMAT;
-                }
-                // PANTHEIOS_BE_INIT_F_HIDE_DATE
-                else if (name == PANTHEIOS_LITERAL_STRING("showDate"))
-                {
-                    flagSuppresses  =   true;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_HIDE_DATE;
-                }
-                // PANTHEIOS_BE_INIT_F_HIDE_TIME
-                else if (name == PANTHEIOS_LITERAL_STRING("showTime"))
-                {
-                    flagSuppresses  =   true;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_HIDE_TIME;
-                }
-                // PANTHEIOS_BE_INIT_F_HIGH_RESOLUTION
-                else if (name == PANTHEIOS_LITERAL_STRING("highResolution"))
-                {
-                    flagSuppresses  =   false;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_HIGH_RESOLUTION;
-                }
-                // PANTHEIOS_BE_INIT_F_LOW_RESOLUTION
-                else if (name == PANTHEIOS_LITERAL_STRING("lowResolution"))
-                {
-                    flagSuppresses  =   false;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_LOW_RESOLUTION;
-                }
-                // PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY
-                else if (name == PANTHEIOS_LITERAL_STRING("numericSeverity"))
-                {
-                    flagSuppresses  =   false;
-                    flagValue       =   PANTHEIOS_BE_INIT_F_NUMERIC_SEVERITY;
-                }
-                else
+                    option_mapping_t const& mapping = s_mappings[j];
+
+                    if (0 != mapping.flag)
+                    {
+                        if (name == mapping.name)
+                        {
+                            flagSuppresses  =   mapping.is_suppressed;
+                            flagValue       =   mapping.flag;
+
+                            found           =   true;
+                            break;
+                        }
+
+                        // NOTE: this is a half-optimisation, based on `s_mappings` being
+                        // ordered. If this was performance sensitive then we might b-chop
+                        if (name < mapping.name)
+                        {
+                            break;
+                        }
+                    }
+                }}
+
+                if (!found)
                 {
                     continue; // We ignore any non-stock flags
                 }
