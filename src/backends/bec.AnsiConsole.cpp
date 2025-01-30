@@ -1,10 +1,10 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:    src/backends/bec.WindowsConsole.cpp
+ * File:    src/backends/bec.AnsiConsole.cpp
  *
  * Purpose: Implementation of the Pantheios ANSI-Console Stock Back-end API.
  *
  * Created: 20th October 2024
- * Updated: 25th January 2025
+ * Updated: 30th January 2025
  *
  * Home:    http://www.pantheios.org/
  *
