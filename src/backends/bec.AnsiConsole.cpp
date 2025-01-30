@@ -577,8 +577,6 @@ namespace {
                         ,   b_8, PAN_BE_GET_SLICE_4_PRINTF(ar[8]), a_8
                         ,   b_9, PAN_BE_GET_SLICE_4_PRINTF(ar[9]), a_9
                         );
-
-        return 0;
     }
 
     int
@@ -596,15 +594,13 @@ namespace {
         ,   char const*
         >   pp = (0 != (PANTHEIOS_BE_ANSICONSOLE_F_COLOUR_MESSAGE & m_flags)) ? severity_to_ansi_strings_(m_stm, m_flags, severity4) : std::make_pair("", "");
 
-        pan_fprintf_(
+        return pan_fprintf_(
             stm
         ,   "%s%.*s%s\n"
         ,   pp.first
         ,   int(cchEntry), entry
         ,   pp.second
         );
-
-        return 0;
     }
 } /* anonymous namespace */
 

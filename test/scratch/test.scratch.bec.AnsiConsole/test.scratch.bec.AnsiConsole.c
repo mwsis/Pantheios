@@ -16,6 +16,8 @@
 
 #include <platformstl/filesystem/path_functions.h>
 
+#include <stdio.h>
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * process identity
