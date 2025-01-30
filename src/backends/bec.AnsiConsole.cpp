@@ -197,7 +197,6 @@ pantheios_be_AnsiConsole_getDefaultAppInit(
 #endif
 }
 
-
 static int
 pantheios_be_AnsiConsole_init_(
     PAN_CHAR_T const*                   processIdentity
