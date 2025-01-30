@@ -13,7 +13,9 @@ target_link_STLSoft(Pantheios.be.AnsiConsole)
 
 define_target_compile_options(Pantheios.be.AnsiConsole)
 
-install(TARGETS Pantheios.be.AnsiConsole)
+install(TARGETS Pantheios.be.AnsiConsole
+	EXPORT project-targets
+)
 
 
 # ############################## end of file ############################# #
