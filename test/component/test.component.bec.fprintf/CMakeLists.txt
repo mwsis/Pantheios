@@ -22,11 +22,6 @@ endif(shwild_FOUND)
 
 target_link_STLSoft(test.component.bec.fprintf)
 
-if(shwild_FOUND)
-
-	target_link_shwild(test.component.bec.fprintf)
-endif(shwild_FOUND)
-
 target_link_xTests(test.component.bec.fprintf)
 
 define_target_compile_options(test.component.bec.fprintf)
