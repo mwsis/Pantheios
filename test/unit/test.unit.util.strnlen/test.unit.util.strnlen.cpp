@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.util.strnlen project.
  *
  * Created: 17th April 2009
- * Updated: 28th October 2024
+ * Updated: 23rd April 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -44,7 +44,7 @@ static void test_1_10();
 static void test_1_11();
 static void test_1_12();
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -318,7 +318,7 @@ static void test_1_12()
 {
 }
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

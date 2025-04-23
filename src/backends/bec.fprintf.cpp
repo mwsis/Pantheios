@@ -4,7 +4,7 @@
  * Purpose: Implementation for the fprintf() back-end
  *
  * Created: 26th June 2005
- * Updated: 29th January 2025
+ * Updated: 23rd April 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -82,7 +82,7 @@ namespace
     using ::pantheios::util::backends::Context;
     using ::pantheios::util::pantheios_onBailOut3;
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -162,7 +162,7 @@ namespace
 
         return stderr;
     }
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

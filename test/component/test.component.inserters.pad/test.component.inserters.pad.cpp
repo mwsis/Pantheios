@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.component.inserters.pad project.
  *
  * Created: 29th June 2009
- * Updated: 28th October 2024
+ * Updated: 23rd April 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -51,7 +51,7 @@ namespace
     static void test_1_12();
     static void test_1_13();
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -282,7 +282,7 @@ static void test_1_13()
 {
 }
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* ///////////////////////////// end of file //////////////////////////// */

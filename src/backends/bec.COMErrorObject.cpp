@@ -4,7 +4,7 @@
  * Purpose: Implementation for the COMErrorObject back-end
  *
  * Created: 9th April 2006
- * Updated: 25th January 2025
+ * Updated: 23rd April 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -133,7 +133,7 @@ namespace
     ,   winstl::processheap_allocator<PAN_CHAR_T>
     >::type                                             buffer_t;
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -179,7 +179,7 @@ namespace
         ErrorObject_Context& operator =(ErrorObject_Context const&);
     };
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

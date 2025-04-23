@@ -4,7 +4,7 @@
  * Purpose: Unit-tests for date component formatting functions.
  *
  * Created: 13th November 2016
- * Updated: 28th October 2024
+ * Updated: 23rd April 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -126,7 +126,7 @@ static void test_1_09();
 static void test_1_10();
 static void test_1_11();
 static void test_1_12();
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* /////////////////////////////////////////////////////////////////////////
  * globals
@@ -826,7 +826,7 @@ static void test_1_11()
 static void test_1_12()
 {
 }
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* ///////////////////////////// end of file //////////////////////////// */

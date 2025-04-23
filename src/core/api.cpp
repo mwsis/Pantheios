@@ -4,11 +4,11 @@
  * Purpose:     Implementation file for Pantheios core API.
  *
  * Created:     21st June 2005
- * Updated:     16th July 2024
+ * Updated:     23rd April 2025
  *
  * Home:        http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * Copyright (c) 1999-2005, Synesis Software and Matthew Wilson
  * All rights reserved.
@@ -210,7 +210,7 @@ namespace
 
 # pragma warning(pop)
     }
-} /* anonymous namespace */
+} // anonymous namespace
 
 # define wcstombs                                           daft_msvc_wcstombs_workaround_
 
@@ -393,7 +393,7 @@ struct pantheios_logprintf_stack_size_constraint_
 };
 
 #ifndef _PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES
-} /* anonymous namespace */
+} // anonymous namespace
 #endif /* !_PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES */
 
 
@@ -591,7 +591,7 @@ namespace
     //////////////////////////////////////////////////////////////////
 
 #ifndef _PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES
-} /* anonymous namespace */
+} // anonymous namespace
 #endif /* !_PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES */
 
 
@@ -949,7 +949,7 @@ namespace
 #endif /* PANTHEIOS_DEFINE_BACK_END_MAP */
 
 #ifndef _PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES
-} /* anonymous namespace */
+} // anonymous namespace
 #endif /* !_PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES */
 
 /* /////////////////////////////////////////////////////////////////////////

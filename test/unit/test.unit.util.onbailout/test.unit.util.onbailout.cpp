@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.util.onbailout project.
  *
  * Created: 29th April 2008
- * Updated: 28th October 2024
+ * Updated: 23rd April 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -68,7 +68,6 @@
         ?   XTESTS_TEST_PASSED()                                    \
         :   XTESTS_TEST_FAIL_WITH_QUALIFIER(std::string("the actual value did not match the pattern '") + pattern + "'", value))
 #endif
-
 #ifdef PANTHEIOS_USE_WIDE_STRINGS
 
 namespace {
@@ -91,15 +90,13 @@ namespace {
         ,   flags
         );
     }
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 #define XTESTS_TEST_WIDE_STRING_MATCHES(pattern, value)             \
                                                                     \
     ((0 == shwild_match_w(pattern, value, 0))                       \
         ?   XTESTS_TEST_PASSED()                                    \
         :   XTESTS_TEST_FAIL_WITH_QUALIFIER(winstl::w2m(std::wstring(L"the actual value did not match the pattern '") + pattern + L"'"), winstl::w2m(value)))
-
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
 
 
@@ -137,25 +134,17 @@ namespace {
 namespace
 {
 
-static void test_unused_receiver();
-static void test_pantheios_onBailOut3();
-static void test_pantheios_onBailOut4();
-static void test_pantheios_onBailOut6();
-static void test_pantheios_onBailOut6_too_long();
+    static void test_unused_receiver();
+    static void test_pantheios_onBailOut3();
+    static void test_pantheios_onBailOut4();
+    static void test_pantheios_onBailOut6();
+    static void test_pantheios_onBailOut6_too_long();
 #ifdef PANTHEIOS_USE_WIDE_STRINGS
-static void test_pantheios_onBailOut3_w();
-static void test_pantheios_onBailOut4_w();
-static void test_pantheios_onBailOut6_w();
+    static void test_pantheios_onBailOut3_w();
+    static void test_pantheios_onBailOut4_w();
+    static void test_pantheios_onBailOut6_w();
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
-static void test_1_06();
-static void test_1_07();
-static void test_1_08();
-static void test_1_09();
-static void test_1_10();
-static void test_1_11();
-static void test_1_12();
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -279,7 +268,7 @@ namespace
 
     OnBailoutReceiver   receiver;
     OnBailoutReceiver_w receiver_w;
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -312,13 +301,6 @@ int main(int argc, char* argv[])
         XTESTS_RUN_CASE(test_pantheios_onBailOut4_w);
         XTESTS_RUN_CASE(test_pantheios_onBailOut6_w);
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
-        XTESTS_RUN_CASE(test_1_06);
-        XTESTS_RUN_CASE(test_1_07);
-        XTESTS_RUN_CASE(test_1_08);
-        XTESTS_RUN_CASE(test_1_09);
-        XTESTS_RUN_CASE(test_1_10);
-        XTESTS_RUN_CASE(test_1_11);
-        XTESTS_RUN_CASE(test_1_12);
 
         XTESTS_PRINT_RESULTS();
 
@@ -1050,35 +1032,7 @@ static void test_pantheios_onBailOut6_w()
 #endif /* PLATFORMSTL_OS_IS_UNIX */
 }
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
-
-static void test_1_06()
-{
-}
-
-static void test_1_07()
-{
-}
-
-static void test_1_08()
-{
-}
-
-static void test_1_09()
-{
-}
-
-static void test_1_10()
-{
-}
-
-static void test_1_11()
-{
-}
-
-static void test_1_12()
-{
-}
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -1124,9 +1078,6 @@ int bailout_test_fopen_s_(FILE**, void const*, void const*);
 # endif /* PANTHEIOS_USE_WIDE_STRINGS */
 
 #endif /* PANTHEIOS_USING_SAFE_STR_FUNCTIONS */
-
-
-
 #if defined(PLATFORMSTL_OS_IS_WINDOWS)
 
 # include <windows.h>
@@ -1179,7 +1130,6 @@ void bailout_test_OutputDebugStringW_(wchar_t const* msg)
 }
 # endif /* PANTHEIOS_USE_WIDE_STRINGS */
 #endif
-
 #if defined(PLATFORMSTL_OS_IS_WINDOWS)
 
 void bailout_test_WriteFile_(FILE*, char const* msg, DWORD cchMsg, DWORD*, void*)
@@ -1201,7 +1151,6 @@ HANDLE bailout_test_CreateFileA(char const*, DWORD, DWORD, void*, DWORD, DWORD, 
 {
     return reinterpret_cast<HANDLE>(+1234567);
 }
-
 # ifdef PANTHEIOS_USE_WIDE_STRINGS
 
 void bailout_test_WriteFile_(FILE*, wchar_t const* msg, DWORD cchMsg, DWORD*, void*)

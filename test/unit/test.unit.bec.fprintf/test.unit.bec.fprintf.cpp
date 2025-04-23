@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.be.file project.
  *
  * Created: 3rd August 2008
- * Updated: 28th October 2024
+ * Updated: 23rd April 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -45,7 +45,7 @@ namespace
 
     const char STDERR_FILE_NAME[] = "stderr.txt";
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ static void test_1_0d();
 static void test_1_0e();
 static void test_1_0f();
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -1174,7 +1174,7 @@ static void test_1_0f()
     }
 }
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

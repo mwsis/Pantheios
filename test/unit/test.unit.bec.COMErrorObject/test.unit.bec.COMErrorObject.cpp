@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.be.COMErrorObject project.
  *
  * Created: 1st January 2008
- * Updated: 25th January 2025
+ * Updated: 23rd April 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -86,7 +86,7 @@ namespace {
 
     static void TEST_pantheios_be_COMErrorObject_WITH_ALL_STOCK_true();
     static void TEST_pantheios_be_COMErrorObject_WITH_ALL_STOCK_false();
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -410,7 +410,7 @@ static void TEST_pantheios_be_COMErrorObject_WITH_ALL_STOCK_false()
 
     TEST_INTEGER_EQUAL(expected, init.flags);
 }
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* ///////////////////////////// end of file //////////////////////////// */

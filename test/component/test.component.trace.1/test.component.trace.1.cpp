@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.component.trace.1 project.
  *
  * Created: 25th November 2007
- * Updated: 28th October 2024
+ * Updated: 23rd April 2025
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -57,7 +57,7 @@ namespace
         return s;
     }
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

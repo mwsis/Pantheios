@@ -4,11 +4,11 @@
  * Purpose: Implementation for the be.test back-end
  *
  * Created: 1st November 2006
- * Updated: 28th October 2024
+ * Updated: 23rd April 2025
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -287,7 +287,7 @@ namespace
 {
 
     ::pantheios::be::test::ximpl_be_test::Context* s_ctxt;
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -358,7 +358,7 @@ namespace
 
     using ::pantheios::util::pantheios_onBailOut6;
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

@@ -237,7 +237,7 @@ namespace {
         return std::make_pair(true, std::move(lines));
     }
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

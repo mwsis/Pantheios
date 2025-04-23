@@ -4,11 +4,11 @@
  * Purpose:     Implementation for the WindowsEventLog back-end
  *
  * Created:     8th May 2006
- * Updated:     16th July 2024
+ * Updated:     23rd April 2025
  *
  * Home:        http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -93,7 +93,7 @@ namespace
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -107,7 +107,7 @@ namespace
     using ::pantheios::pantheios_severity_to_WindowsEventLog_type;
 
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

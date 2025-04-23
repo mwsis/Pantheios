@@ -4,7 +4,7 @@
  * Purpose: Implementation for the file back-end.
  *
  * Created: 25th November 2006
- * Updated: 29th January 2025
+ * Updated: 23rd April 2025
  *
  * Thanks:  CookieRaver for filling in the (accidental) blanks in the UNIX
  *          implementation.
@@ -155,7 +155,7 @@
             return ::_open(filename, oflag, pmode);
         }
 #   pragma warning(pop)
-    } /* anonymous namespace */
+    } // anonymous namespace
 #   define open                                             open_original_
 #  else /* ? PANTHEIOS_USING_SAFE_STR_FUNCTIONS */
 #   define open                                             _open
@@ -254,7 +254,7 @@ namespace
     typedef buffer_selector_<PAN_CHAR_T>::type          buffer_t;
 
     typedef platformstl::filesystem_traits<PAN_CHAR_T>  traits_t;
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -545,7 +545,7 @@ namespace
         }
     }
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

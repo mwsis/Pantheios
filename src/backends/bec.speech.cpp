@@ -4,7 +4,7 @@
  * Purpose: Implementation for the speech back-end
  *
  * Created: 31st August 2006
- * Updated: 29th January 2025
+ * Updated: 23rd April 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -114,7 +114,7 @@ namespace
     ,   winstl::processheap_allocator<PAN_CHAR_T>
     >::type                                     buffer_t;
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -175,7 +175,7 @@ namespace
         voice_type              voice;
     };
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

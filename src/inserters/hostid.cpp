@@ -4,11 +4,11 @@
  * Purpose:     Implementation of the pantheios::hostId inserter class.
  *
  * Created:     14th April 2008
- * Updated:     16th December 2023
+ * Updated:     23rd April 2025
  *
  * Home:        http://www.pantheios.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2008-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -79,7 +79,7 @@ namespace pantheios
 namespace
 {
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 #endif /* !PANTHEIOS_NO_NAMESPACE */
 

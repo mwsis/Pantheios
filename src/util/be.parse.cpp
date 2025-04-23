@@ -4,7 +4,7 @@
  * Purpose: Utility functions for use in Pantheios back-ends.
  *
  * Created: 19th August 2007
- * Updated: 24th January 2025
+ * Updated: 23rd April 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -184,7 +184,7 @@ namespace
         return false;
     }
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

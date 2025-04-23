@@ -4,11 +4,11 @@
  * Purpose:     Implementation of the pantheios::boolean inserter class.
  *
  * Created:     7th August 2008
- * Updated:     16th December 2023
+ * Updated:     23rd April 2025
  *
  * Home:        http://www.pantheios.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2008-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -142,7 +142,7 @@ typedef stlsoft::stlsoft_char_traits<pantheios_char_t> char_traits_t;
  * namespace
  */
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

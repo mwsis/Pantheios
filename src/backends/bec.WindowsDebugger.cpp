@@ -4,7 +4,7 @@
  * Purpose: Implementation for the WindowsDebugger back-end
  *
  * Created: 18th July 2005
- * Updated: 29th January 2025
+ * Updated: 23rd April 2025
  *
  * Home:    http://www.pantheios.org/
  *
@@ -90,7 +90,7 @@ namespace
     ,   winstl_ns_qual(processheap_allocator)<PAN_CHAR_T>
     >::type                                     buffer_t;
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -140,7 +140,7 @@ namespace
         ,   size_t              cchEntry
         );
     };
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
