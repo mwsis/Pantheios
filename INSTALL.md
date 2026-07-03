@@ -140,15 +140,9 @@ $ unzip Pantheios-1.0.1-beta222.zip
 $ unzip STLSoft-1.11-1.11.1-alpha25.zip
 ```
 
-3. Define an environment variable `STLSOFT`, whose value is the directory in which you unzipped it, e.g. `STLSOFT=~/open-source/STLSoft-1.11-1.11.1-alpha25`, and then specify `$(STLSOFT)/include` (**UNIX**) or `%STLSOFT%\include` (**Windows**) in your project files and makefiles;
+3. Define an environment variable `STLSOFT`, whose value is the directory in which you unzipped **STLSoft**, e.g. `STLSOFT=~/open-source/STLSoft-1.11-1.11.1-alpha25`.
 
-4. Select and change to the appropriate build subdirectory under your **Pantheios** directory, e.g. **build/gcc48.unix**, and then execute make
-
-```bash
-$ cd Pantheios-1.0.1-beta222
-$ cd build/gcc48.unix
-$ make
-```
+4. Build and install **Pantheios** via **CMake**, following steps 2–3 in [Cloning project, installing via CMake](#cloning-project-installing-via-cmake), using the unzipped **Pantheios** directory in place of a clone.
 
 
 ### Cloning project, using environment variables
