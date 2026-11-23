@@ -1457,24 +1457,23 @@ pantheios_logvprintf(
     {
         /* The standard requires that the return value is either:
          *
-         * - the number of characters written, if that is < cch
-         * - the number of characters that would have been written, if >= cch
-         * - a negative value if a failure occurs
+         * - the number of characters written, if that is < cch;
+         * - the number of characters that would have been written, if >= cch;
+         * - a negative value if a failure occurs;
          *
          * However, some implementations return a negative value in the
          * second case. Consequently, the following code has to be a little
          * bit more intelligent:
          *
-         * - write a leading '\0' before calling vsnprintf
-         * - write a trailing '\0' after calling vsnprintf
+         * - write a leading '\0' before calling vsnprintf;
+         * - write a trailing '\0' after calling vsnprintf;
          */
         pantheios_char_t    sz[PRINTF_STACK_BUFFER_SIZE + 1];
-
-        sz[0] = '\0';
-
-        int                 cch = pantheios_util_vsnprintf(&sz[0], STLSOFT_NUM_ELEMENTS(sz) - 1, format, args);
+        int                 cch = (sz[0] = '\0', pantheios_util_vsnprintf(&sz[0], STLSOFT_NUM_ELEMENTS(sz) - 1, format, args));
 
         sz[STLSOFT_NUM_ELEMENTS(sz) - 1] = '\0';
+
+        // handler different printf() failure modes
 
         if (cch < 0)
         {
