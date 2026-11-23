@@ -36,7 +36,7 @@
 | 3 | Slice-array back-end entry (`writev`) | | Unmeasured. API addition. |
 | 4 | Stop zero-initialising the `printf` stack buffer | ✅ | 149.6 → 75.3 ns/call. `printf-long` 387.3 → 332.3. |
 | 5 | Inline an `fe.simple` ceiling cache | | Unmeasured. Gain looks small. |
-| 6 | Narrow the `try` in `pantheios_log_n()` | | Unmeasured. Only if a profile shows it. |
+| 6 | Narrow the `try` in `pantheios_log_n()` | ⚠️ | Applied. No measurable change (`short` 31.0, `wide` 178.6, `oversize` 81.1). |
 | 7 | Internal buffer for small inserters | | Unmeasured. Not covered by this program. |
 
 
@@ -79,9 +79,9 @@ Cache that ceiling in the core, update it from `pantheios_fe_simple_setSeverityC
 
 ### 6. Narrow the `try` in `pantheios_log_n()`
 
-The sum, the `auto_buffer`, the copy, and `pantheios_dispatch()` sit in one `try` that catches `std::bad_alloc` and `std::exception`. On compilers that emit unwind tables for the whole function, that frame is on the success path.
+Applied. The buffer is constructed empty, and `resize(1 + n)` is the only call inside the `try`. The slice copy and `pantheios_dispatch()` sit after it. An exception from the copy now propagates; previously `std::exception` there became a bail-out and `PANTHEIOS_INIT_RC_UNSPECIFIED_EXCEPTION`. Allocation failure is unchanged: `resize()` returning false, or `std::bad_alloc`, still bails out with `PANTHEIOS_INIT_RC_OUT_OF_MEMORY`.
 
-Move the catch so it covers the allocation only, and leave the copy and the dispatch outside it. Do this only if a profile shows those tables in the hot samples. Contract checks stay where they are.
+`short`, `wide`, and `oversize` were the rows that might move. Against the post-item-4 run they are 31.0, 178.6, and 81.1 ns/call (previously 30.8, 174.8, and 83.0). That is noise. The behaviour change remains: an exception from the copy propagates, where it used to become a bail-out. Worth reverting unless that propagation is wanted for its own sake.
 
 
 ### 7. Internal buffer for small inserters
