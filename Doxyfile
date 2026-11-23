@@ -2,7 +2,7 @@
 
 PROJECT_NAME           = "Pantheios"
 PROJECT_BRIEF          = "The C/C++ Diagnostic Logging Sweetspot"
-PROJECT_NUMBER         = 1.0.1
+PROJECT_NUMBER         = 1.0.2
 
 # Prefer SIS_CMAKE_BUILD_DIR-aligned output (same convention as BDUT /
 # CLASP / Diagnosticism / STLSoft). ./dox/ remains gitignored for

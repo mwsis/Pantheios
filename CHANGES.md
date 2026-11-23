@@ -1,6 +1,10 @@
 # Pantheios - Changes <!-- omit in toc -->
 
 
+## 1.0.2 - 25th November 2026
+
+
+
 ## 1.0.1 - 5th November 2026
 
 * version:

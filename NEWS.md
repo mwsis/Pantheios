@@ -1,8 +1,9 @@
 # Pantheios - News <!-- omit in toc -->
 
 
-| Date                | News Item                                                     | Details    |
-| ------------------- | ------------------------------------------------------------- | ---------- |
+| Date                | News Item | Details |
+| ------------------- | --------- | ------- |
+| 25th November 2026  | Release of [Pantheios 1.0.2](https://github.com/synesissoftware/Pantheios/releases/tag/1.0.2) | |
 | 5th November 2026   | Release of [Pantheios 1.0.1](https://github.com/synesissoftware/Pantheios/releases/tag/1.0.1) | final `PANTHEIOS_VER_1_0_1` (`0x010001FF`); **woad** **0.2.2** |
 | 5th November 2026   | Release of [Pantheios 1.0.1-rc10](https://github.com/synesissoftware/Pantheios/releases/tag/1.0.1-rc10) | `PANTHEIOS_NOEXCEPT` on core, util, trivial front/back-ends, and `processId` strings; `PANTHEIOS_VER_1_0_1_RC10` |
 | 3rd November 2026   | Release of [Pantheios 1.0.1-rc9](https://github.com/synesissoftware/Pantheios/releases/tag/1.0.1-rc9) | optional **Pantheios.inserters.b64**; **inserters.hpp** no longer includes **b64**; `PANTHEIOS_VER_1_0_1_RC9` |

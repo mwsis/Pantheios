@@ -148,22 +148,22 @@ $ sudo cmake --install ${SIS_CMAKE_BUILD_DIR:-./_build} --config Release
 0. Install the same prerequisites as in the clone section: [**STLSoft**](https://github.com/synesissoftware/STLSoft) (**1.11.5** or later) and [**woad**](https://github.com/synesissoftware/woad) (**0.2.2** or later), each built and installed with **CMake**. Optional [**b64**](https://github.com/synesissoftware/b64), [**shwild**](https://github.com/synesissoftware/shwild), and **ACE** are the same as there. Release archives for the Synesis libraries are on each project's GitHub tags page.
 
 
-1. Download the **Pantheios** **1.0.1** archive (or a later tag) and unpack it, as in:
+1. Download the **Pantheios** **1.0.2** archive (or a later tag) and unpack it, as in:
 
 ```bash
 $ mkdir -p ~/open-source
 $ cd ~/open-source
-$ curl -L -o Pantheios-1.0.1.zip https://github.com/synesissoftware/Pantheios/archive/refs/tags/1.0.1.zip
-$ unzip Pantheios-1.0.1.zip
+$ curl -L -o Pantheios-1.0.2.zip https://github.com/synesissoftware/Pantheios/archive/refs/tags/1.0.2.zip
+$ unzip Pantheios-1.0.2.zip
 ```
 
-The archive unpacks to **Pantheios-1.0.1**.
+The archive unpacks to **Pantheios-1.0.2**.
 
 
 2. Prepare, build, and install from that directory. The flags are the same as [step 2 of the clone section](#cloning-project-installing-via-cmake-recommended):
 
 ```bash
-$ cd ~/open-source/Pantheios-1.0.1
+$ cd ~/open-source/Pantheios-1.0.2
 $ ./prepare_cmake.sh
 $ sudo cmake --install ${SIS_CMAKE_BUILD_DIR:-./_build} --config Release
 ```
