@@ -31,7 +31,7 @@
 
 | # | Suggestion | Status | Comment |
 | --- | --- | --- | --- |
-| 1 | `memcpy` per slice in `pantheios_log_n()` | | Unmeasured. |
+| 1 | `memcpy` per slice in `pantheios_log_n()` | ❌ | Not worth it. `short` 31.0 → 30.7. `wide` 178.6 → 168.1. |
 | 2 | Hand-written stack buffer instead of `auto_buffer` | ❌ | Withdrawn. |
 | 3 | Slice-array back-end entry (`writev`) | | Unmeasured. API addition. |
 | 4 | Stop zero-initialising the `printf` stack buffer | ✅ | 149.6 → 75.3 ns/call. `printf-long` 387.3 → 332.3. |
@@ -42,11 +42,7 @@
 
 ### 1. Concatenate slices with `memcpy`
 
-`pantheios_log_n()` in **src/core/api.cpp** sums slice lengths with `std::accumulate` and `member_selector`, then copies them with `std::copy` into `cstring_concatenator`. Both passes walk the slice array through iterator adaptors.
-
-Replace that with one loop: a running pointer into the `auto_buffer`, and `memcpy` of each slice. `pantheios_logassertfail()` already copies its two parts that way. Keep the NUL after the last byte, and keep the length check that the written count equals the sum.
-
-`short` (4 slices) and `wide` (32 slices) are the rows that should move. `oversize` still pays for the heap spill once the statement exceeds the 2048-byte internal buffer.
+Rejected as a performance change. `short` (4 slices) went from 31.0 to 30.7 ns/call, which is noise. `wide` (32 slices) went from 178.6 to 168.1. That saving does not show up on the common statement, so the `memcpy` loop is not worth keeping for speed. Revert `pantheios_log_n()` to the `std::accumulate` and `cstring_concatenator` concatenation.
 
 
 ### 2. Replace `auto_buffer` with a local array
