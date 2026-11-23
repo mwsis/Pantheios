@@ -1468,7 +1468,10 @@ pantheios_logvprintf(
          * - write a leading '\0' before calling vsnprintf
          * - write a trailing '\0' after calling vsnprintf
          */
-        pantheios_char_t    sz[PRINTF_STACK_BUFFER_SIZE + 1] = { '\0' };
+        pantheios_char_t    sz[PRINTF_STACK_BUFFER_SIZE + 1];
+
+        sz[0] = '\0';
+
         int                 cch = pantheios_util_vsnprintf(&sz[0], STLSOFT_NUM_ELEMENTS(sz) - 1, format, args);
 
         sz[STLSOFT_NUM_ELEMENTS(sz) - 1] = '\0';
