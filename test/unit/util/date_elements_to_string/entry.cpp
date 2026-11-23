@@ -4,7 +4,7 @@
  * Purpose: Unit-tests for date component formatting functions.
  *
  * Created: 13th November 2016
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -71,7 +71,7 @@ static void TEST_pantheios_util_formatMicrosecondToString6_ZERO();
 static void TEST_pantheios_util_formatMicrosecondToString6_VALID_RANGE();
 static void TEST_pantheios_util_formatMicrosecondToString6_OUT_OF_RANGE();
 static void TEST_pantheios_util_date_formatting_COMPOSITE();
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* /////////////////////////////////////////////////////////////////////////
  * globals
@@ -520,10 +520,7 @@ static void TEST_pantheios_util_date_formatting_COMPOSITE()
 
     TEST_STRING_EQ(PSTR("2016-11-13 13:45:23"), sz);
 }
-
-
-} /* anonymous namespace */
-
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

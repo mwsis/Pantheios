@@ -93,7 +93,7 @@ namespace
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -105,9 +105,8 @@ namespace
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 
     using ::pantheios::pantheios_severity_to_WindowsEventLog_type;
-
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

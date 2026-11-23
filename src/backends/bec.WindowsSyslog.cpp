@@ -5,11 +5,11 @@
  *          API.
  *
  * Created: 23rd September 2005
- * Updated: 25th January 2025
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -114,7 +114,7 @@ namespace
     typedef buffer_selector_<char>::type                    buffer_a_t;
     typedef buffer_selector_<wchar_t>::type                 buffer_w_t;
     typedef buffer_selector_<PAN_CHAR_T>::type              buffer_t;
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -136,7 +136,7 @@ namespace
         unsigned char   facility;
     };
     typedef struct WindowsSysLog_Context                    WindowsSysLog_Context;
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -845,7 +845,6 @@ pri_print_(
 
     return r;
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

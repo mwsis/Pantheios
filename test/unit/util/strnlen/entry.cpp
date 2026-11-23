@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.util.strnlen project.
  *
  * Created: 17th April 2009
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -36,7 +36,7 @@ static void TEST_pantheios_util_strnlen_VIA_strlen();
 static void TEST_pantheios_util_strnlen_CALCULATED_FORWARDS();
 static void TEST_pantheios_util_strnlen_CALCULATED_BACKWARDS();
 static void TEST_pantheios_util_strnlen_WITH_NEGATIVES();
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -273,9 +273,7 @@ static void TEST_pantheios_util_strnlen_WITH_NEGATIVES()
     TEST_INT_EQ(9u, pantheios_util_strnlen(abcdefghi, static_cast<size_t>(minus1)));
     }
 }
-
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

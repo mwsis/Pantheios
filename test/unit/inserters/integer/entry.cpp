@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.inserter.integer project.
  *
  * Created: 21st December 2010
- * Updated: 29th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -32,11 +32,14 @@ static void TEST_pantheios_integer_SIGNED_ONES();
 static void TEST_pantheios_integer_SIGNED_ONES_WITH_ZERO_WIDTH_AND_FLAGS();
 static void TEST_pantheios_integer_showPlus();
 static void TEST_pantheios_integer_NEGATIVE_ONE();
-} /* anonymous namespace */
+} // anonymous namespace
 
-/* ////////////////////////////////////////////////////////////////////// */
 
-#define PSTR(x)                         PANTHEIOS_LITERAL_STRING(x)
+/* /////////////////////////////////////////////////////////////////////////
+ * macros
+ */
+
+#define PSTR(x)                                             PANTHEIOS_LITERAL_STRING(x)
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -46,18 +49,22 @@ static void TEST_pantheios_integer_NEGATIVE_ONE();
 #ifdef PANTHEIOS_USE_WIDE_STRINGS
 
 # define TEST_STRING_EQ                                     TEST_WS_EQ
-
 #else /* ? PANTHEIOS_USE_WIDE_STRINGS */
 
 # define TEST_STRING_EQ                                     TEST_MS_EQ
-
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * globals
+ */
 
 PANTHEIOS_EXTERN PAN_CHAR_T const PANTHEIOS_FE_PROCESS_IDENTITY[] = PANTHEIOS_LITERAL_STRING("test.unit.inserter.integer");
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * main()
+ */
 
 int main(int argc, char* argv[])
 {
@@ -81,7 +88,10 @@ int main(int argc, char* argv[])
     return retCode;
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * test function implementations
+ */
 
 namespace
 {
@@ -116,9 +126,7 @@ static void TEST_pantheios_integer_NEGATIVE_ONE()
     TEST_STRING_EQ(PSTR("-1"), pantheios::integer(-1));
 //    TEST_STRING_EQ(PSTR("+1"), pantheios::integer(+1));
 }
-
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

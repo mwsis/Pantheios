@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.component.bec.fprintf project.
  *
  * Created: 25th June 2020
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -236,8 +236,7 @@ namespace {
 
         return std::make_pair(true, std::move(lines));
     }
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -369,7 +368,6 @@ static void TEST_pantheios_be_fprintf_USE_UNIX_FORMAT_and_NO_THREAD_ID_and_HIGH_
     }
 }
 #endif /* PANTHEIOS_HAS_SHWILD */
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

@@ -4,7 +4,7 @@
  * Purpose: Unit-tests for bec.file.
  *
  * Created: 19th January 2008
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -157,7 +157,7 @@ static void TEST_pantheios_be_file_TRUNCATE_DELETE_IF_EMPTY_SHOW_NONE();
 
 static void TEST_pantheios_be_file_WITH_ALL_STOCK_true();
 static void TEST_pantheios_be_file_WITH_ALL_STOCK_false();
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -3202,8 +3202,7 @@ static void TEST_pantheios_be_file_WITH_ALL_STOCK_false()
 
     TEST_INT_EQ(expected, init.flags);
 }
-} /* anonymous namespace */
-
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

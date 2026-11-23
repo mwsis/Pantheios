@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.bec.WindowsSyslog project.
  *
  * Created: 17th October 2008
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -51,7 +51,7 @@ namespace
     static void TEST_pantheios_be_WindowsSyslog_init_STUB_log_verification();
     static void TEST_pantheios_be_WindowsSyslog_WITH_ALL_STOCK_true();
     static void TEST_pantheios_be_WindowsSyslog_WITH_ALL_STOCK_false();
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -335,8 +335,7 @@ static void TEST_pantheios_be_WindowsSyslog_WITH_ALL_STOCK_false()
 
     TEST_INT_EQ(expected, init.flags);
 }
-} /* anonymous namespace */
-
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

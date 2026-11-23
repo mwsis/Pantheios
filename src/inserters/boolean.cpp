@@ -4,7 +4,7 @@
  * Purpose: Implementation of the pantheios::boolean inserter class.
  *
  * Created: 7th August 2008
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -142,7 +142,7 @@ typedef stlsoft::stlsoft_char_traits<pantheios_char_t> char_traits_t;
  * namespace
  */
 
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

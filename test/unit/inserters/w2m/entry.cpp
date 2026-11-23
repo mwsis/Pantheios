@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.inserter.w2m project.
  *
  * Created: 21st December 2010
- * Updated: 29th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -37,7 +37,7 @@ namespace
 {
 
 static void TEST_pantheios_w2m_MATCHES_stlsoft_w2m();
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -88,9 +88,7 @@ static void TEST_pantheios_w2m_MATCHES_stlsoft_w2m()
         TEST_MS_EQ(stlsoft::w2m(strings[i]), pantheios::w2m(strings[i]));
     }}
 }
-
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

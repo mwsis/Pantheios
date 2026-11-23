@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.component.inserters.pad project.
  *
  * Created: 29th June 2009
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -41,7 +41,7 @@ namespace
     static void TEST_pantheios_pad_EMPTY_std_string_TO_WIDTH();
     static void TEST_pantheios_pad_SINGLE_SPACE_SOURCE();
     static void TEST_pantheios_pad_VALUE_THEN_VALUE_MATRIX();
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
 
 namespace
 {
-    typedef std::basic_string<pantheios::pan_char_t>    string_t;
+    typedef std::basic_string<pantheios::pan_char_t>            string_t;
 
 static void TEST_pantheios_pad_EMPTY_C_STR_TO_WIDTH()
 {
@@ -225,10 +225,7 @@ static void TEST_pantheios_pad_VALUE_THEN_VALUE_MATRIX()
         }}
     }}
 }
-
-
-} /* anonymous namespace */
-
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

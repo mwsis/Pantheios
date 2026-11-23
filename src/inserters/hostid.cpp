@@ -4,7 +4,7 @@
  * Purpose: Implementation of the pantheios::hostId inserter class.
  *
  * Created: 14th April 2008
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -79,8 +79,7 @@ namespace pantheios
 namespace
 {
 
-} /* anonymous namespace */
-
+} // anonymous namespace
 #endif /* !PANTHEIOS_NO_NAMESPACE */
 
 
@@ -179,7 +178,6 @@ host_id_t::operator pantheios_char_t const* () const
 # if !defined(STLSOFT_COMPILER_IS_BORLAND)
 } // namespace inserters
 # endif /* !STLSOFT_COMPILER_IS_BORLAND */
-
 } // namespace pantheios
 #endif /* !PANTHEIOS_NO_NAMESPACE */
 

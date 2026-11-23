@@ -4,7 +4,7 @@
  * Purpose: Implementation file for Pantheios core API.
  *
  * Created: 21st June 2005
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -90,11 +90,9 @@ PANTHEIOS_CALL(void) pantheios_exitProcess(int code) PANTHEIOS_NOEXCEPT
     // sophisticated back-end, e.g. log4cxx, does not initialise.
 
     ::ExitProcess(static_cast<DWORD>(code));
-
 #else /* ? operating system */
 
      ::_exit(code);
-
 #endif /* operating system */
 }
 

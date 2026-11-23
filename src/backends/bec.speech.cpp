@@ -4,11 +4,11 @@
  * Purpose: Implementation for the speech back-end
  *
  * Created: 31st August 2006
- * Updated: 29th January 2025
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -113,8 +113,7 @@ namespace
     ,   2048
     ,   winstl::processheap_allocator<PAN_CHAR_T>
     >::type                                     buffer_t;
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -174,8 +173,7 @@ namespace
         comstl::com_initializer coinit;
         voice_type              voice;
     };
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -579,7 +577,6 @@ be_speech_context::speak(
         return 0;
     }
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

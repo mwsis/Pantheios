@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        src/util/time.cpp
+ * File:    src/util/time.cpp
  *
- * Purpose:     Time functions for use in Pantheios back-ends.
+ * Purpose: Time functions for use in Pantheios back-ends.
  *
- * Created:     22nd August 2006
- * Updated:     16th July 2024
+ * Created: 22nd August 2006
+ * Updated: 23rd November 2026
  *
- * Home:        http://www.pantheios.org/
+ * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -148,14 +148,11 @@ namespace
 #ifdef PANTHEIOS_USE_WIDE_STRINGS
 
 # define pan_strftime_                                      wcsftime
-
 #else /* ? PANTHEIOS_USE_WIDE_STRINGS */
 
 # define pan_strftime_                                      strftime
-
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

@@ -4,11 +4,11 @@
  * Purpose: Implementation for the COMErrorObject back-end
  *
  * Created: 9th April 2006
- * Updated: 25th January 2025
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -132,8 +132,7 @@ namespace
     ,   2048
     ,   winstl::processheap_allocator<PAN_CHAR_T>
     >::type                                             buffer_t;
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -178,8 +177,7 @@ namespace
     private:
         ErrorObject_Context& operator =(ErrorObject_Context const&);
     };
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

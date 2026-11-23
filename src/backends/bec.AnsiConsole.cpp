@@ -4,7 +4,7 @@
  * Purpose: Implementation of the Pantheios ANSI-Console Stock Back-end API.
  *
  * Created: 20th October 2024
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -151,7 +151,7 @@ namespace {
         FILE* const                 m_stm;
         pantheios_uint32_t const    m_flags;
     };
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -610,7 +610,7 @@ namespace {
         ,   pp.second
         );
     }
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* ///////////////////////////// end of file //////////////////////////// */

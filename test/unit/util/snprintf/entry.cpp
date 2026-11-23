@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.util.snprintf project.
  *
  * Created: 19th June 2020
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -34,7 +34,7 @@ static void TEST_pantheios_util_snprintf_a();
 static void TEST_pantheios_util_snprintf_w();
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
 static void TEST_pantheios_util_snprintf();
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -391,10 +391,7 @@ static void TEST_pantheios_util_snprintf()
         TEST_STRING_EQ(PANTHEIOS_LITERAL_STRING("-10"), buff);
     }
 }
-
-
-} /* anonymous namespace */
-
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

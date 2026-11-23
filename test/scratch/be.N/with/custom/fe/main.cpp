@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.scratch.be.N.with.custom.fe project.
  *
  * Created: 23rd December 2010
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * Thanks:  To wassime, for submitting the original program definition.
  *
@@ -46,7 +46,7 @@ namespace
 static int iCeilingConsole  = PANTHEIOS_SEV_DEBUG;
 static int iCeilingMain     = PANTHEIOS_SEV_NOTICE;
 static int iCeilingError    = PANTHEIOS_SEV_ERROR;
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -158,7 +158,6 @@ PANTHEIOS_CALL(int) pantheios_fe_isSeverityLogged(void*, int severity, int beid)
             return false;
     }
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

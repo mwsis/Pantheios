@@ -4,7 +4,7 @@
  * Purpose: Implementation of the b64 inserter class.
  *
  * Created: 31st July 2006
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -71,7 +71,7 @@ namespace
 
     using ::pantheios::core::pantheios_inserterAllocate;
     using ::pantheios::core::pantheios_inserterDeallocate;
-} /* anonymous namespace */
+} // anonymous namespace
 #endif /* !PANTHEIOS_NO_NAMESPACE */
 
 

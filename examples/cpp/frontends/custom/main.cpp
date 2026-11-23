@@ -7,7 +7,7 @@
  *            - use of pantheios::logputs() in bail-out conditions
  *
  * Created: 31st August 2006
- * Updated: 10th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -39,8 +39,7 @@ namespace
   // they get more serious as the values get lower).
 
   static int  s_severityCeiling = pantheios::notice;
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* ////////////////////////////////////////////////////////////////////// */
@@ -118,7 +117,6 @@ PANTHEIOS_CALL(int) pantheios_fe_isSeverityLogged(  void*   /* token */
 {
   return severity <= s_severityCeiling;
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

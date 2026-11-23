@@ -4,7 +4,7 @@
  * Purpose: Implementation file for Pantheios Application Layer API.
  *
  * Created: 27th August 2006
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -55,7 +55,10 @@ namespace core
 {
 #endif /* !PANTHEIOS_NO_NAMESPACE */
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * Application layer functions
+ */
 
 #include "pantheios/generated/log_dispatch_functions.h"
 #include "pantheios/internal/generated/log_functions.inl"

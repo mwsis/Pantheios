@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.component.trace.1 project.
  *
  * Created: 25th November 2007
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -56,8 +56,7 @@ namespace
 
         return s;
     }
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -375,7 +374,6 @@ static void TEST_PANTHEIOS_TRACE_TWO_LARGE_STRINGS_2560()
     TEST(pantheios::informational == results[0].severity);
     PANTHEIOS_TEST_STRING_OBJECTS_EQUAL(fileline_stmt_((msgEl1 + msgEl2).c_str(), LINE), results[0].statement);
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

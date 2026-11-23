@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.bec.fprintf project.
  *
  * Created: 3rd August 2008
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -44,8 +44,7 @@ namespace
 {
 
     const char STDERR_FILE_NAME[] = "stderr.txt";
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -118,8 +117,7 @@ static void TEST_pantheios_be_fprintf_logEntry_SHOW_DATETIME_SEVERITY();
 static void TEST_pantheios_be_fprintf_logEntry_SHOW_PROCESS_ID_DATETIME_SEVERITY();
 static void TEST_pantheios_be_fprintf_logEntry_SHOW_THREAD_ID_DATETIME_SEVERITY();
 static void TEST_pantheios_be_fprintf_logEntry_SHOW_ALL_STOCK();
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -1173,8 +1171,7 @@ static void TEST_pantheios_be_fprintf_logEntry_SHOW_ALL_STOCK()
         }
     }
 }
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

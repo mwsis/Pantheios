@@ -1,15 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        src/util/core.apidefs.cpp
+ * File:    src/util/core.apidefs.cpp
  *
- * Purpose:     Utility functions for use in Pantheios back- and front-
- *              ends.
+ * Purpose: Utility functions for use in Pantheios back- and front-ends.
  *
- * Created:     19th August 2007
- * Updated:     16th December 2023
+ * Created: 19th August 2007
+ * Updated: 23rd November 2026
  *
- * Home:        http://www.pantheios.org/
+ * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -65,10 +64,8 @@ namespace
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 
     using ::pantheios::util::pantheios_onBailOut6;
-
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -340,7 +337,6 @@ PANTHEIOS_CALL(int) pantheios_call_be_logEntry(
     }
 # endif /* PANTHEIOS_USE_CATCHALL */
 }
-
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
 /* ///////////////////////////// end of file //////////////////////////// */

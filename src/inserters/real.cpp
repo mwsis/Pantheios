@@ -4,7 +4,7 @@
  * Purpose: Implementation of the `real` inserter class.
  *
  * Created: 21st June 2005
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -184,7 +184,6 @@ void real::construct_()
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 } // namespace pantheios
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

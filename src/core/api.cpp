@@ -365,9 +365,8 @@ struct pantheios_logprintf_stack_size_constraint_
         STLSOFT_STATIC_ASSERT(PRINTF_STACK_BUFFER_SIZE < 0x100000);
     }
 };
-
 #ifndef _PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES
-} /* anonymous namespace */
+} // anonymous namespace
 #endif /* !_PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES */
 
 
@@ -562,7 +561,7 @@ namespace
     //////////////////////////////////////////////////////////////////
 
 #ifndef _PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES
-} /* anonymous namespace */
+} // anonymous namespace
 #endif /* !_PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES */
 
 
@@ -919,7 +918,7 @@ namespace
     }
 #endif /* PANTHEIOS_DEFINE_BACK_END_MAP */
 #ifndef _PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES
-} /* anonymous namespace */
+} // anonymous namespace
 #endif /* !_PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES */
 
 

@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.fe.WindowsRegistry project.
  *
  * Created: 14th May 2008
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -73,8 +73,7 @@ namespace
     static void TEST_fe_WindowsRegistry_HKCU_OVERRIDES_HKLM(void);
     static void TEST_fe_WindowsRegistry_STAR(void);
     static void TEST_fe_WindowsRegistry_CLEANUP(void);
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -215,8 +214,7 @@ get_exception_status_code(
     return x.get_error_code();
 #endif
 }
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -626,9 +624,7 @@ static void TEST_fe_WindowsRegistry_CLEANUP()
 
     TEST_PASSED();
 }
-
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

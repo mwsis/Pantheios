@@ -4,7 +4,7 @@
  * Purpose: Utility functions for use in Pantheios back-ends.
  *
  * Created: 19th August 2007
- * Updated: 29th October 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -130,6 +130,7 @@ pantheios_be_parseStockArgs_(
 
 namespace
 {
+
     bool
     has_boolean_flag_value(
         string_view_t const&    value
@@ -164,8 +165,7 @@ namespace
 
         return false;
     }
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -527,7 +527,6 @@ pantheios_be_parseStockArgs_(
 
     return numMatched;
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

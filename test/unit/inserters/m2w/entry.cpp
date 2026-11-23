@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.inserter.m2w project.
  *
  * Created: 22nd November 2010
- * Updated: 29th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -37,7 +37,7 @@ namespace
 {
 
 static void TEST_pantheios_m2w_MATCHES_stlsoft_m2w();
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -88,9 +88,7 @@ static void TEST_pantheios_m2w_MATCHES_stlsoft_m2w()
         TEST_WS_EQ(stlsoft::m2w(strings[i]), pantheios::m2w(strings[i]));
     }}
 }
-
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

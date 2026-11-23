@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.util.onbailout project.
  *
  * Created: 29th April 2008
- * Updated: 12th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -91,8 +91,7 @@ namespace {
         ,   flags
         );
     }
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 #define TEST_WS_MATCHES(pattern, value)                             \
                                                                     \
@@ -147,7 +146,7 @@ static void TEST_pantheios_onBailOut3_w();
 static void TEST_pantheios_onBailOut4_w();
 static void TEST_pantheios_onBailOut6_w();
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -271,7 +270,7 @@ namespace
 
     OnBailoutReceiver   receiver;
     OnBailoutReceiver_w receiver_w;
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -1034,9 +1033,7 @@ static void TEST_pantheios_onBailOut6_w()
 #endif /* PLATFORMSTL_OS_IS_UNIX */
 }
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
-
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -1234,7 +1231,6 @@ void bailout_fclose_(FILE* hFile)
         fclose(hFile);
     }
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

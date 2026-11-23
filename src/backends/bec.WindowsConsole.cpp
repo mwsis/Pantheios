@@ -4,11 +4,11 @@
  * Purpose: Implementation of the Pantheios Windows-Console Stock Back-end API.
  *
  * Created: 17th July 2006
- * Updated: 29th January 2025
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -217,7 +217,7 @@ namespace
                 ,   handleId
                 );
     }
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -343,8 +343,7 @@ namespace
         WORD const                  m_defaultColours;
     /// @}
     };
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -383,7 +382,7 @@ namespace
         ,   {   PANTHEIOS_SEV_DEBUG + 7,     STD_OUTPUT_HANDLE,  FOREGROUND_BLUE     |   0                      |   BACKGROUND_WHITE    |   BACKGROUND_INTENSITY    }
         ,   {   PANTHEIOS_SEV_DEBUG + 8,     STD_OUTPUT_HANDLE,  FOREGROUND_BLUE     |   0                      |   BACKGROUND_WHITE    |   BACKGROUND_INTENSITY    }
     };
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -946,7 +945,6 @@ WindowsConsole_Context::write_reset(
 
     ::WriteConsole(hOutput, &ch, 0, &dummy, NULL);
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

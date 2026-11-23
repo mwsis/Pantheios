@@ -4,7 +4,7 @@
  * Purpose: Implementation of the `interval` inserter class.
  *
  * Created: 19th April 2014
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -244,7 +244,6 @@ void interval::construct_()
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 } // namespace pantheios
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

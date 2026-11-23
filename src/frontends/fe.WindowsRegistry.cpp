@@ -4,11 +4,11 @@
  * Purpose: Implementation of the fe.WindowsRegistry front-end.
  *
  * Created: 28th October 2007
- * Updated: 20th October 2024
+ * Updated: 23rd November 2025
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -69,8 +69,7 @@ namespace
 
     using ::pantheios::util::pantheios_onBailOut3;
     using ::pantheios::util::pantheios_onBailOut6;
-
-} /* anonymous namespace */
+} // anonymous namespace
 #endif /* !PANTHEIOS_NO_NAMESPACE */
 
 
@@ -89,8 +88,7 @@ namespace
     PAN_CHAR_T const    PANTHEIOS_FE_WINDOWSREGISTRY_BUILD_LABEL[]  =   PANTHEIOS_LITERAL_STRING("Release");
     int const           PANTHEIOS_FE_WINDOWSREGISTRY_DEFAULT_FILTER =   0x7f;
 #endif /* _DEBUG */
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -111,22 +109,21 @@ namespace
 namespace
 {
 
-inline
-DWORD
-get_exception_status_code(
-    winstl::windows_exception& x
-)
-{
+    inline
+    DWORD
+    get_exception_status_code(
+        winstl::windows_exception& x
+    )
+    {
 #if _STLSOFT_VER >= 0x010a0181
 
-    return x.status_code();
+        return x.status_code();
 #else
 
-    return x.get_error_code();
+        return x.get_error_code();
 #endif
-}
-
-} /* anonymous namespace */
+    }
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -160,8 +157,7 @@ namespace
 #endif /* 0 */
         DWORD   levels_;
     };
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -285,7 +281,10 @@ PANTHEIOS_CALL(int) pantheios_fe_isSeverityLogged(
     return ctxt->isSeverityLogged(severity);
 }
 
-/* ////////////////////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////////////////////////
+ * implementation
+ */
 
 namespace
 {
@@ -429,8 +428,7 @@ namespace
 
         return 0 != (levels_ & index);
     }
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

@@ -1,12 +1,12 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        inserters/threadid.cpp
+ * File:    inserters/threadid.cpp
  *
- * Purpose:     Implementation of the inserter classes.
+ * Purpose: Implementation of the inserter classes.
  *
- * Created:     16th October 2006
- * Updated:     5th November 2026
+ * Created: 16th October 2006
+ * Updated: 23rd November 2026
  *
- * Home:        http://www.pantheios.org/
+ * Home:    http://www.pantheios.org/
  *
  * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2006-2019, Matthew Wilson and Synesis Software
@@ -151,7 +151,6 @@ thread_id_t::operator pantheios_char_t const* () const
 
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 } // namespace inserters
-
 } // namespace pantheios
 #endif /* !PANTHEIOS_NO_NAMESPACE */
 

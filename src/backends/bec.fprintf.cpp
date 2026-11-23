@@ -4,11 +4,11 @@
  * Purpose: Implementation for the fprintf() back-end
  *
  * Created: 26th June 2005
- * Updated: 29th January 2025
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -82,7 +82,7 @@ namespace
     using ::pantheios::util::backends::Context;
     using ::pantheios::util::pantheios_onBailOut3;
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -162,7 +162,7 @@ namespace
 
         return stderr;
     }
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -357,7 +357,6 @@ be_fprintf_Context::rawLogEntry(
 
     return pan_fprintf_(m_stm, PANTHEIOS_LITERAL_STRING("%.*s\n"), int(cchEntry), entry);
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

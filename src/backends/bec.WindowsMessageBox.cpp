@@ -4,11 +4,11 @@
  * Purpose: Implementation for the WindowsMessageBox back-end
  *
  * Created: 10th March 2008
- * Updated: 7th February 2024
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2008-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -91,7 +91,7 @@ namespace
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -273,7 +273,6 @@ int WindowsMessageBox_Context::ReportEvent(
 
     return static_cast<int>(cchEntry);
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

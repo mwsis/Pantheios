@@ -4,11 +4,11 @@
  * Purpose: Implementation for the WindowsDebugger back-end
  *
  * Created: 18th July 2005
- * Updated: 29th January 2025
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
- * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
@@ -88,9 +88,8 @@ namespace
         PAN_CHAR_T
     ,   2048
     ,   winstl_ns_qual(processheap_allocator)<PAN_CHAR_T>
-    >::type                                     buffer_t;
-
-} /* anonymous namespace */
+    >::type                                                 buffer_t;
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -140,7 +139,7 @@ namespace
         ,   size_t              cchEntry
         );
     };
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////

@@ -4,7 +4,7 @@
  * Purpose: Implementation of the `integer` inserter class.
  *
  * Created: 21st June 2005
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -332,8 +332,7 @@ namespace
             return (widthAndFormat & ~0xff) /* | (0 != (fmt::zeroXPrefix & widthAndFormat) ? fmt::zeroPad : 0) */;
         }
     }
-
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -967,7 +966,6 @@ void integer::construct_()
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 } // namespace pantheios
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

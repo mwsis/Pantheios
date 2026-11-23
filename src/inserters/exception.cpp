@@ -4,7 +4,7 @@
  * Purpose: String inserter for std::exception-derived types.
  *
  * Created: 22nd March 2010
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -156,7 +156,6 @@ size_t exception_inserter::length() const
 
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 } // namespace inserters
-
 } // namespace pantheios
 #endif /* !PANTHEIOS_NO_NAMESPACE */
 

@@ -4,7 +4,7 @@
  * Purpose: Implementation file for the test.unit.inserter.stream_character project.
  *
  * Created: 9th May 2014
- * Updated: 29th October 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -30,7 +30,7 @@ namespace
     static void TEST_pantheios_stream_character_TYPE_EXISTS();
     static void TEST_pantheios_stream_character_PLAIN_CHARACTERS();
     static void TEST_pantheios_stream_character_SPECIAL_CHARACTERS();
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -145,9 +145,7 @@ static void TEST_pantheios_stream_character_SPECIAL_CHARACTERS()
 
     TEST_STRING_EQ(PSTR("DEL"), pantheios::stream_character(127));
 }
-
-} /* anonymous namespace */
-
+} // anonymous namespace
 
 /* ///////////////////////////// end of file //////////////////////////// */
 

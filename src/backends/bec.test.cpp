@@ -4,7 +4,7 @@
  * Purpose: Implementation for the be.test back-end
  *
  * Created: 1st November 2006
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -286,7 +286,7 @@ namespace
 {
 
     ::pantheios::be::test::ximpl_be_test::Context* s_ctxt;
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -357,7 +357,7 @@ namespace
 
     using ::pantheios::util::pantheios_onBailOut6;
 #endif /* !PANTHEIOS_NO_NAMESPACE */
-} /* anonymous namespace */
+} // anonymous namespace
 
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -451,7 +451,6 @@ static int pantheios_be_test_logEntry_(
 
     return 0;
 }
-
 
 /* ///////////////////////////// end of file //////////////////////////// */
 
