@@ -278,7 +278,7 @@ namespace pantheios_x
 
     private:
         thread_mutex_t(class_type const&);
-        class_type& operator =(class_type const&);
+        void operator =(class_type const&);
     };
 } // namespace pantheios_x
 
@@ -609,7 +609,7 @@ namespace
 
     private:
         BackEndMap(class_type const&);
-        class_type& operator =(class_type const&);
+        void operator =(class_type const&);
     };
 
     int pantheios_init_backEndMap()

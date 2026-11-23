@@ -10,7 +10,7 @@
  *            - use of pantheios::logputs() in bail-out conditions
  *
  * Created: 31st August 2006
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * ////////////////////////////////////////////////////////////////////// */
 
@@ -332,7 +332,7 @@ public:
   {}
 #endif /* compiler */
 private:
-  class_type& operator =(class_type const&);
+  void operator =(class_type const&);
 
 public:
   PAN_CHAR_T const* data() const
