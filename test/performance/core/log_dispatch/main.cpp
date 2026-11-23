@@ -171,6 +171,7 @@ static void fill_char_(PAN_CHAR_T* p, size_t n, PAN_CHAR_T ch)
     {
         p[i] = ch;
     }}
+
     p[n] = PAN_CHAR_T();
 }
 
@@ -226,17 +227,17 @@ static int is_known_case_(char const* name)
     return 0;
 }
 
-static void usage_()
+static void show_usage_(FILE* stm)
 {
-    fprintf(stderr, "USAGE: test.performance.core.log_dispatch [<case> ...]\n");
-    fprintf(stderr, "cases:");
+    fprintf(stm, "USAGE: test.performance.core.log_dispatch [<case-1> [... <case-N>]]\n");
+    fprintf(stm, "cases:");
 
     { for (size_t i = 0; i != STLSOFT_NUM_ELEMENTS(s_cases); ++i)
     {
-        fprintf(stderr, " %s", s_cases[i].name);
+        fprintf(stm, " %s", s_cases[i].name);
     }}
 
-    fprintf(stderr, "\n");
+    fprintf(stm, "\n");
 }
 
 static unsigned long time_case_(case_t const& c)
@@ -318,7 +319,7 @@ static int main_(int argc, char* argv[])
     {
         if (0 == ::strcmp(argv[i], "-h") || 0 == ::strcmp(argv[i], "--help"))
         {
-            usage_();
+            show_usage_(stdout);
 
             return EXIT_SUCCESS;
         }
@@ -326,7 +327,7 @@ static int main_(int argc, char* argv[])
         if (!is_known_case_(argv[i]))
         {
             fprintf(stderr, "unknown case: %s\n", argv[i]);
-            usage_();
+            show_usage_(stderr);
 
             return EXIT_FAILURE;
         }
