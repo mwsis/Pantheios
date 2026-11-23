@@ -35,7 +35,7 @@
 | 2 | Hand-written stack buffer instead of `auto_buffer` | ❌ | Withdrawn. |
 | 3 | Slice-array back-end entry (`writev`) | | Unmeasured. API addition. |
 | 4 | Stop zero-initialising the `printf` stack buffer | ✅ | 149.6 → 75.3 ns/call. `printf-long` 387.3 → 332.3. |
-| 5 | Inline an `fe.simple` ceiling cache | | Unmeasured. Gain looks small. |
+| 5 | Inline an `fe.simple` ceiling cache | ❌ | Rejected. It put one frontend's ceiling into the core. |
 | 6 | Narrow the `try` in `pantheios_log_n()` | ⚠️ | Applied. No measurable change (`short` 31.0, `wide` 178.6, `oversize` 81.1). |
 | 7 | Internal buffer for small inserters | | Unmeasured. Not covered by this program. |
 
@@ -70,11 +70,7 @@ Applied in `pantheios_logvprintf()`. The stack buffer is `PANTHEIOS_CORE_LOGPRIN
 
 ### 5. Inline an `fe.simple` ceiling
 
-Every C++ `log()` calls `pantheios_isSeverityLogged()` before it builds slices. That is one out-of-line call into the frontend. For **fe.simple** the body is `(severity & 0x0f) <= pantheios_fe_severity_ceiling_`.
-
-Cache that ceiling in the core, update it from `pantheios_fe_simple_setSeverityCeiling()`, and inline the compare for this frontend. Frontends that decide per back-end (**fe.N**, the Windows registry frontend) keep the real call. `be.N` would still call the frontend once per back-end.
-
-`filtered` and `severity` are already about 3.4 and 2.4 ns/call, so the gain is a call overhead on statements that do no other work.
+Rejected. Caching **fe.simple**'s ceiling in the core, or teaching `pantheios_isSeverityLogged()` about that frontend, makes the core depend on one frontend. `pantheios_isSeverityLogged()` stays a call to `pantheios_fe_isSeverityLogged()`. `filtered` and `severity` remain 3.4 and 2.4 ns/call.
 
 
 ### 6. Narrow the `try` in `pantheios_log_n()`
