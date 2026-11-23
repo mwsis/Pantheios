@@ -4,7 +4,7 @@
  * Purpose: Implementation file for Pantheios core API.
  *
  * Created: 21st June 2005
- * Updated: 5th November 2026
+ * Updated: 23rd November 2026
  *
  * Home:    http://www.pantheios.org/
  *
@@ -178,9 +178,10 @@
 namespace std
 {
 
-    template<   typename I
-            ,   typename O
-            >
+    template<
+        typename I
+    ,   typename O
+    >
     inline O daft_msvc_copy_workaround_(I first, I last, O out)
     {
         for (; first != last; ++first, ++out)
@@ -204,9 +205,7 @@ namespace std
     using stlsoft::std_fill_n;
 
 #  define fill_n                                            std_fill_n
-
 } // namespace std
-
 #endif /* STLSOFT_COMPILER_IS_MSVC && PANTHEIOS_USING_SAFE_STR_FUNCTIONS */
 
 
@@ -217,11 +216,9 @@ namespace std
 #ifdef PANTHEIOS_USE_WIDE_STRINGS
 
 # define pan_strlen_                                        wcslen
-
 #else /* ? PANTHEIOS_USE_WIDE_STRINGS */
 
 # define pan_strlen_                                        strlen
-
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
 
 
@@ -263,11 +260,11 @@ namespace pantheios_x
     {
     public: // Member types
 # ifdef PANTHEIOS_MT
-        typedef platformstl::thread_mutex   parent_class_type;
+        typedef platformstl::thread_mutex                       parent_class_type;
 # else /* ? PANTHEIOS_MT */
-        typedef stlsoft::null_mutex         parent_class_type;
+        typedef stlsoft::null_mutex                             parent_class_type;
 # endif /* PANTHEIOS_MT */
-        typedef thread_mutex_t              class_type;
+        typedef thread_mutex_t                                  class_type;
 
     public: // Construction
         explicit thread_mutex_t(bool b)
@@ -287,6 +284,7 @@ namespace pantheios_x
 
 namespace stlsoft
 {
+
     inline void lock_instance(::pantheios_x::thread_mutex_t& mx)
     {
         ::stlsoft::lock_instance(static_cast< ::pantheios_x::thread_mutex_t::parent_class_type&>(mx));
@@ -295,9 +293,7 @@ namespace stlsoft
     {
         ::stlsoft::unlock_instance(static_cast< ::pantheios_x::thread_mutex_t::parent_class_type&>(mx));
     }
-
 } // namespace stlsoft
-
 #endif /* !PANTHEIOS_MT_HAS_ATOMIC_INTEGER_OPERATIONS */
 
 
@@ -388,7 +384,6 @@ namespace
 #ifndef PANTHEIOS_MT_HAS_ATOMIC_INTEGER_OPERATIONS
 
     using pantheios_x::thread_mutex_t;
-
 #endif /* !PANTHEIOS_MT_HAS_ATOMIC_INTEGER_OPERATIONS */
 
     // Forward declarations
@@ -412,7 +407,6 @@ namespace
 
     // The spin mutex used to guard the memory pool allocation list
     platformstl::spin_mutex::atomic_int_type    s_mxMem;
-
 #else /* ? PANTHEIOS_MT_HAS_ATOMIC_INTEGER_OPERATIONS */
 
     // When the architecture does not support atomic integer
@@ -449,7 +443,6 @@ namespace
     }                                           s_mx1_
     ,                                           s_mx2_
     ,                                           s_mx3_;
-
 #endif /* PANTHEIOS_MT_HAS_ATOMIC_INTEGER_OPERATIONS */
 
     // The value of the first API initialisation return
@@ -598,7 +591,7 @@ namespace
     class BackEndMap
     {
     public:
-        typedef BackEndMap      class_type;
+        typedef BackEndMap                                      class_type;
 
     public:
         BackEndMap();
@@ -609,7 +602,7 @@ namespace
         int remove(int backEndId);
 
     private:
-        typedef std::map<int, void*>    map_type_;
+        typedef std::map<int, void*>                            map_type_;
 
         thread_mutex_t      m_mx;
         map_type_           m_map;
@@ -853,7 +846,6 @@ namespace
         return r;
 
 #undef pantheios_core_impl_getProcessIdentity_a
-
     }
 
     void pantheios_uninit_onetime()
@@ -926,10 +918,10 @@ namespace
         return m_map.erase(backEndId) > 0;
     }
 #endif /* PANTHEIOS_DEFINE_BACK_END_MAP */
-
 #ifndef _PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES
 } /* anonymous namespace */
 #endif /* !_PANTHEIOS_COMPILER_CANNOT_USE_ANONYMOUS_NAMESPACES */
+
 
 /* /////////////////////////////////////////////////////////////////////////
  * core API
@@ -1347,12 +1339,12 @@ pantheios_log_n__cpp(
     typedef PANTHEIOS_NS_QUAL_(util, auto_buffer_selector)<
         pantheios_char_t
     ,   1 + LOG_STACK_BUFFER_SIZE
-    >::type                                         buffer_t;
+    >::type                                                 buffer_t;
 #else /* ? 0 */
 
     typedef stlsoft::auto_buffer<
         pantheios_char_t
-    >                                               buffer_t;
+    >                                                       buffer_t;
 #endif /* 0 */
 
 #ifdef STLSOFT_CF_EXCEPTION_SUPPORT
@@ -1368,7 +1360,6 @@ pantheios_log_n__cpp(
         const size_t    n   =   std::accumulate(stlsoft::member_selector(slices, &pan_slice_t::len)
                                             ,   stlsoft::member_selector(slices + numSlices, &pan_slice_t::len)
                                             ,   size_t(0));
-
 #else /* ? compiler */
 
         // The crappy way, for less-than compilers
@@ -1378,7 +1369,6 @@ pantheios_log_n__cpp(
         {
             n += slices[i].len;
         }}
-
 #endif /* compiler */
 
         buffer_t        buffer(1 + n);
@@ -1444,8 +1434,6 @@ pantheios_log_n__cpp(
     return 0;
 #endif /* compiler */
 }
-
-
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 } // namespace core
 #endif /* !PANTHEIOS_NO_NAMESPACE */
@@ -1511,7 +1499,6 @@ namespace core
 {
 #endif /* !PANTHEIOS_NO_NAMESPACE */
 
-
 PANTHEIOS_CALL(int) pantheios_isInitialising(void) PANTHEIOS_NOEXCEPT
 {
     return s_isInitialising;
@@ -1529,7 +1516,6 @@ PANTHEIOS_CALL(int) pantheios_getNextBackEndId(void)
     static platformstl::atomic_int_t    s_nextId    =   PANTHEIOS_CORE_BACKENDID_BASE;
 
     return static_cast<int>(platformstl::atomic_preincrement(&s_nextId));
-
 #else /* ? PANTHEIOS_MT_HAS_ATOMIC_INTEGER_OPERATIONS */
 
     static int                          s_nextId    =   PANTHEIOS_CORE_BACKENDID_BASE;
@@ -1539,7 +1525,6 @@ PANTHEIOS_CALL(int) pantheios_getNextBackEndId(void)
     return ++s_nextId;
 #endif /* PANTHEIOS_MT_HAS_ATOMIC_INTEGER_OPERATIONS */
 }
-
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 } // namespace core
 #endif /* !PANTHEIOS_NO_NAMESPACE */
@@ -1563,12 +1548,14 @@ pantheios_logassertfail(
 #endif /* STLSOFT_CF_EXCEPTION_SUPPORT */
 
 #if 1
+
             typedef PANTHEIOS_NS_QUAL_(util, auto_buffer_selector)<
                 char
              ,   1 + LOG_STACK_BUFFER_SIZE
-             >::type                            buffer_t;
+             >::type                                        buffer_t;
 #else /* ? 0 */
-            typedef stlsoft::auto_buffer<char>  buffer_t;
+
+            typedef stlsoft::auto_buffer<char>              buffer_t;
 #endif /* 0 */
 
             size_t const    cchFileLine =   stlsoft::c_str_len(fileLine);
@@ -1590,11 +1577,9 @@ pantheios_logassertfail(
                 stlsoft::m2w    message2(buff.data(), cchFileLine + cchMessage);
 
                 pantheios_dispatch(severity, message2.size(), message2.data());
-
 #else /* ? PANTHEIOS_USE_WIDE_STRINGS */
 
                 pantheios_dispatch(severity, cchFileLine + cchMessage, buff.data());
-
 #endif /* PANTHEIOS_USE_WIDE_STRINGS */
             }
 
@@ -1636,13 +1621,11 @@ PANTHEIOS_CALL(void*) pantheios_malloc(size_t cb)
 
     platformstl::spin_mutex                         mx(&s_mxMem);
     stlsoft::lock_scope<platformstl::spin_mutex>    lock(mx);
-
 #else /* ? PANTHEIOS_MT_HAS_ATOMIC_INTEGER_OPERATIONS */
 
     PANTHEIOS_CONTRACT_ENFORCE_PRECONDITION_STATE_API(NULL != s_pmxMem, "memory pool mutex must be initialised");
 
     stlsoft::lock_scope<thread_mutex_t>             lock(*s_pmxMem);
-
 #endif /* PANTHEIOS_MT_HAS_ATOMIC_INTEGER_OPERATIONS */
 
     memory_pool_entry_t* entry = memory_pool_entry_t::alloc(cb, s_memPoolHead);
@@ -1731,7 +1714,6 @@ pantheios_getPad(
 
     return s_padCharacters;
 }
-
 #if !defined(PANTHEIOS_NO_NAMESPACE)
 } // namespace core
 #endif /* !PANTHEIOS_NO_NAMESPACE */
